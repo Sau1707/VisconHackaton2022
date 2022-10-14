@@ -1,5 +1,13 @@
 .mainBox {
     width: 100vw;
     height: 100vh;
+    margin: 0 !important;
+    max-width:  100%;
     background-color: rebeccapurple;
+}
+
+.fake {
+    padding: 20px;
+    height: 200px;
+    border: 2px solid black
 }

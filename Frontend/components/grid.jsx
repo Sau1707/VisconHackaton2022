@@ -7,7 +7,11 @@ export default function Grid(props) {
     return (
         <Container className={style.mainBox}>
             <Row xs={1} md={2}>
-                {props.children.map(e => <Col className={style.fake}> {e}</Col>)}
+                {props.children.map(e => (
+                    <Col className={style.fake}>
+                        {e}
+                    </Col>
+                ))}
             </Row>
         </Container>
     );

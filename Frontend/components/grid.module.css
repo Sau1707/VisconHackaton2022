@@ -7,7 +7,8 @@
 }
 
 .fake {
+    position: relative;
+    margin: auto;
     padding: 20px;
-    height: 200px;
-    border: 2px solid black
+    height: 50vh;
 }

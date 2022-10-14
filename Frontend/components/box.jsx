@@ -1,17 +1,17 @@
 import style from "./example.module.css"
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { useRouter } from 'next/router'
 
 
 export default function Box(props) {
+
     return (
         <Card>
             <Card.Body>
                 <Card.Title>{props.title}</Card.Title>
                 <Card.Text>
-                    This is a longer card with supporting text below as a natural
-                    lead-in to additional content. This content is a little bit
-                    longer.
+                    {props.children}
                 </Card.Text>
             </Card.Body>
         </Card>

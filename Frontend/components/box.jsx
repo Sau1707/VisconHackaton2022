@@ -14,6 +14,7 @@ export default function Box(props) {
                 longer.
               </Card.Text>
             </Card.Body>
+            <Card.Img variant="bottom" src="holder.js/100px180" />
           </Card>
       );
 }

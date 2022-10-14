@@ -1,5 +1,5 @@
 import style from "./example.module.css"
 
-export default function Example() {
-    return (<h1 className={style.exampleClass}> Example </h1>)
+export default function Example(props) {
+    return (<h1 className={style.exampleClass}> {props.children} </h1>)
 }

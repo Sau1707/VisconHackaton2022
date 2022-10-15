@@ -11,7 +11,6 @@ export default function Achievements() {
                 <ChartBox></ChartBox>
                 <Tracker></Tracker>
                 <Tracker></Tracker>
-                <Tracker></Tracker>
             </div>    
         </>
     )

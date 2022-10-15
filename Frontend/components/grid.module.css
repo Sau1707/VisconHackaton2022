@@ -4,7 +4,13 @@
     width: 100vw;
     height: fit-content;
     margin: 0 !important;
-    max-width:  100%;
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .mainBox {
+        position: relative;
+    }
 }
 
 .fake {

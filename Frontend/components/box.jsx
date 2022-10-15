@@ -11,7 +11,7 @@ export default function Box(props) {
     }
 
     return (
-        <div className={style.flipCard} onClick={redirect}>
+        <div className={style.flipCard} onDoubleClick={redirect}>
             <div className={style.flipCardInner}>
                 <div className={style.flipCardFront}>
                     <h1 style={{ padding: 100 }}> {props.title} </h1>

@@ -5,7 +5,7 @@ import { useState, createContext } from "react";
 export const UserContext = createContext()
 
 function MyApp({ Component, pageProps }) {
-    const [username, setUsername] = useState("Luigi");
+    const [username, setUsername] = useState("");
 
     return (
         <UserContext.Provider value={{ username, setUsername }}>

@@ -6,3 +6,8 @@
 .mainBox h4 {
     margin-bottom: 30px;
 }
+
+.confetti {
+    position: absolute;
+    margin: auto;
+}

@@ -5,6 +5,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=["GET", "POST"])
 def handle():
+    #return {"Exists": "true"}
     # https://stackoverflow.com/questions/38637249/why-is-my-flask-request-object-always-empty
     # Form goes into
     #   request.form
@@ -14,7 +15,11 @@ def handle():
     # print(request.form) # DEBUG
     # print(request.args) # DEBUG
     rq = {}
-    rq['Form'] = request.form
+    try:
+        rq['Json'] = request.json if request.is_json else {}
+    except Exception as e:
+        print(f"fml: {e}")
+        rq['Json'] = {}
     rq['Args'] = request.args
     rq['Method'] = request.method
     return request_handler(rq)

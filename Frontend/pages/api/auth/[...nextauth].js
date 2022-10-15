@@ -13,7 +13,7 @@ export default NextAuth({
         }),
     ],
     theme: {
-        colorScheme: "light",
+        colorScheme: "dark",
     },
     jwt: {
         secret: process.env.SECRET,

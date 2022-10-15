@@ -1,15 +1,17 @@
 import React, { Suspense, useRef } from "react";
-import {
-  Canvas,
-  useLoader,
-  useFrame,
-  extend,
-  useThree
-} from "react-three-fiber";
+
+//import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { Canvas,
+    useLoader,
+    useFrame,
+    extend,
+    useThree } from "@react-three/fiber";
+//import { shaderMaterial } from "@react-three/drei";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import "./styles.css";
+import { VALID_LOADERS } from "next/dist/shared/lib/image-config";
+//import "./styles.css";
 
 // Calling extend with the native OrbitControls class from Three.js
 // will make orbitControls available as a native JSX element.
@@ -32,22 +34,24 @@ function Loading() {
   );
 }
 
+
 function ArWing() {
-  const group = useRef();
-  const { nodes } = useLoader(GLTFLoader, "models/arwing.glb");
-  return (
-    <group ref={group}>
-      <mesh visible geometry={nodes.Default.geometry}>
-        <meshStandardMaterial
-          attach="material"
-          color="white"
-          roughness={0.3}
-          metalness={0.3}
-        />
-      </mesh>
-    </group>
-  );
-}
+    const group = useRef();
+    const { nodes, materials } = useLoader(GLTFLoader, "/models/trophy.glb");
+    console.log(materials);
+    return (
+      <group ref={group}>
+        <mesh visible geometry={nodes.cup001.geometry} material = {materials['palette.001']}>
+          <meshStandardMaterial
+            attach="material"
+            color="white"
+            roughness={0.3}
+            metalness={0.3}
+          />
+        </mesh>
+      </group>
+    );
+  }
 
 const CameraControls = () => {
   // Get a reference to the Three.js Camera, and the canvas html element.
@@ -78,21 +82,14 @@ const CameraControls = () => {
 export default function App() {
   return (
     <>
-      <Canvas style={{ background: "white" }}>
+      <Canvas style={{ background: "white",  width: "100%",
+  height: "500px"}}>
         <CameraControls />
         <directionalLight intensity={0.5} />
         <Suspense fallback={<Loading />}>
           <ArWing />
         </Suspense>
       </Canvas>
-      <a
-        href="https://codeworkshop.dev/blog/2020-04-03-adding-orbit-controls-to-react-three-fiber/"
-        className="blog-link"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Blog Post
-      </a>
     </>
   );
 }

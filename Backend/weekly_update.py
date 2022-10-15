@@ -1,17 +1,28 @@
+from multiprocessing.sharedctypes import Value
 from typing import Union, Any, List
 import requests
 import json
 import random
 from enum import Enum
 from datetime import datetime
+import sqlite3
+import numpy as np
+
+# There was a circular import. This ugly nonsense should be straightened out later.
+CRUD_USERS_TABLE = "user_table"
 
 DEBUG = False
 
+# StoryFmt is just the format of the stories we want to return.
+# Normally this will be comma-delimitted exercises/courses, but
+# you may want more information like the times and locations to
+# be able to inform users.
 class StoryFmt(Enum):
     CommaDelimited = 0
     Array = 1
     Jsons = 2
 
+# Story creator is just a class with static methods to create stories.
 class StoryCreator:
     SAMPLE_SIZE = 1000
 
@@ -63,15 +74,40 @@ class StoryCreator:
             return names
         return ','.join(names)
 
+# WeeklyUpdateExecutor basically pairs up all the users in the database and
+# updates their stories in pairs (resetting their progress to zero).
 class WeeklyUpdateExecutor:
-    # XXX This should basically have one function that goes through every active user
-    # XXX and then pairs them out (if odd number then you can ignore one arbitrary
-    # XXX guy) and then for each pair updates them (in Crud function `handle_post`)
-    # XXX such that they are eachothers opponents and they each get the same story.
-    # XXX Stories can be random otherwise (i.e. across different pairs).
-    # XXX Make sure to not forget to update little things like the week etc...
-    # XXX Make sure to update ALL
-    pass
+    def update(c: sqlite3.Cursor):
+        # Get the set of users to pair up
+        users = c.execute(f"""SELECT Username, Active FROM {CRUD_USERS_TABLE}""").fetchall()
+        assert len(users) > 0 and all([len(user) == 2 for user in users])
+        # Those should only be the active users
+        users = [user[0] for user in users if bool(user[1])]
+        np.random.shuffle(users)
+
+        # Throw away the odd one out if they happen to exist
+        # XXX update everything
+        if len(users) % 2 == 1:
+            odd = users[-1]
+            c.execute(
+                f"""UPDATE {CRUD_USERS_TABLE} SET ActiveThisWeek = ? WHERE Username = ?;""",
+                (False, odd,))
+            users.pop()
+
+        # Pair the users
+        assert len(users) % 2 == 0
+        users = [(users[i], users[int(len(users)/2) + i]) for i in range(int(len(users)/2))]
+
+        # Generate a story per user pair (could be slow... could be improved by
+        # doing a single request instead of like one per pair)
+        for user1, user2 in users:
+            story = StoryCreator.create(StoryFmt.CommaDelimited)
+            for user, opponent in [(user1, user2), (user2, user1)]:
+                c.execute(
+                    f"""UPDATE {CRUD_USERS_TABLE} SET Story = ?, Progress = ?, LastWeekUpdated = ?, ActiveThisWeek = ?, Active = ?, Opponent = ? WHERE Username = ?;""", (
+                            story, 0, datetime.now(), True, True, opponent, user))
+
+
 
 if __name__ == '__main__':
     # Use this to debug. The primary usage of `weekly_update` will be

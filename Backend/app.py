@@ -26,7 +26,7 @@ def handle_weekly_update():
     rq['Form'] = request.form
     rq['Args'] = request.args
     rq['Method'] = request.method
-    return weekly_update_request_handler(rq)
+    return weekly_update_handler(rq)
 
 # Run a flask app on debug mode
 if __name__=='__main__':

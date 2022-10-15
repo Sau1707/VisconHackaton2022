@@ -2,6 +2,9 @@ from datetime import datetime
 import sqlite3
 
 from typing import Callable, Any
+from weekly_update import CRUD_USERS_TABLE
+
+from weekly_update import WeeklyUpdateExecutor
 
 # Use This Flag to decide whether to do print statements
 # for all requests (and other debug functionality).
@@ -20,6 +23,7 @@ DEBUG = True
 class Crud(object):
     USERS_DB_FILE = "users.db" 
     USERS_TABLE = "user_table"
+    assert USERS_TABLE == CRUD_USERS_TABLE
     
     # Unclear why you can't @staticmethod these
     # (I don't know what it does technically)
@@ -163,8 +167,16 @@ class Crud(object):
         # Return same output as the GET request
         conn.commit()
         return Crud.handle_get({'Form' : {'Exists Test': "false", "Username": username}})
+    
+    # There is no input or output for this method, but it does
+    # change the state of the server completely. It will get all the users, pair them,
+    # assign stories and opponents based on the pairs, and then update the database accordingly.
+    @withConnCursor
+    def handle_weekly_update(c: sqlite3.Cursor, conn: sqlite3.Connection) -> str:
+        WeeklyUpdateExecutor.update(c)
+        return {}
 
-def request_handler(request: Any):
+def request_handler(request: Any) -> Any:
     if DEBUG:
         from pprint import PrettyPrinter
         PrettyPrinter().pprint(request)
@@ -173,5 +185,9 @@ def request_handler(request: Any):
     if request["Method"] == "GET":
         return Crud.handle_get(request)
 
-def weekly_update_handler():
-    return "TBD" # XXX
+def weekly_update_handler(request: any) -> Any:
+    if DEBUG:
+        from pprint import PrettyPrinter
+        PrettyPrinter().pprint(request)
+    assert request['Method'] == 'POST'
+    return Crud.handle_weekly_update()

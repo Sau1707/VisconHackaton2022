@@ -14,9 +14,9 @@ def display():
     # print(request.form) # DEBUG
     # print(request.args) # DEBUG
     rq = {}
-    rq['form'] = request.form
-    rq['args'] = request.args
-    rq['method'] = request.method
+    rq['Form'] = request.form
+    rq['Args'] = request.args
+    rq['Method'] = request.method
     return request_handler(rq)
 
 # Run a flask app on debug mode

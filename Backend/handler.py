@@ -1,3 +1,4 @@
+from datetime import datetime
 import sqlite3
 
 from typing import Callable, Any
@@ -14,6 +15,7 @@ from typing import Callable, Any
 
 class Crud(object):
     USERS_DB_FILE = "users.db" 
+    USERS_TABLE = "user_table"
     
     # Unclear why you can't @staticmethod these
     # (I don't know what it does technically)
@@ -27,6 +29,10 @@ class Crud(object):
             # This should be generalized to work for multiple DB files in the future
             conn = sqlite3.connect(Crud.USERS_DB_FILE)
             c = conn.cursor()
+
+            # Create the table if it does not exist so that all the functions will work out of the box
+            c.execute(f"""CREATE TABLE IF NOT EXISTS {Crud.USERS_TABLE} (Username text, Story text, Progress int, CumulativePoints, int, Opponent text, LastWeekUpdated datetime, Active boolean, ActiveThisWeek boolean);""")
+            
             result = func(c, conn, *args, **kwargs)
             conn.commit()
             conn.close()
@@ -38,7 +44,8 @@ class Crud(object):
     # INPUT
     # {
     #   Form : {
-    #     Username: <username string>
+    #     Username: <username string>,
+    #     Exists Test: <true | false>,
     #   }
     # }
     #
@@ -55,10 +62,29 @@ class Crud(object):
     # }
     @withConnCursor
     def handle_get(c: sqlite3.Cursor, conn: sqlite3.Connection, request: Any) -> str:
-        # Example query
-        data = c.execute("""SELECT * FROM full_data ORDER BY time_ ASC;""").fetchall()
-        
-        return "hello"
+        # If the get request is getting existence then just return whether the user exists
+        username = request['Form']['Username']
+        user_exists = len(c.execute(
+                f"""SELECT * FROM {Crud.USERS_TABLE} WHERE Username=?""",
+                (username,)).fetchall()) > 0
+        if request['form']['Exists Test']:
+            return user_exists
+        # If the get request is getting the user return their data
+        if not user_exists:
+            c.execute("""INSERT into highscores VALUES (?,?,?,?,?,?,?,?);""", (username, "", 0, 0, "", datetime.today(), True, False))
+
+        (user, story, prog, cum, opp, wk, active, active_now) = c.execute(
+            f"""SELECT * FROM {Crud.USERS_TABLE} WHERE Username = ?""").fetchall()
+        return {
+            "Username": user,
+            "Story": [ex for ex in story.split(',')] if len(story) > 0 else "",
+            "Progress": int(prog),
+            "Cumulative Points": int(cum),
+            "Opponent": opp,
+            "Last Week Updated": wk,
+            "Active": bool(active),
+            "Active This Week": bool(active_now),
+        }
     
     # Be able to update the database and state for a user or set of users.
     # If the user completes their task and their opponent has not yet finished it
@@ -79,7 +105,8 @@ class Crud(object):
     # {
     #   Is Weekly Update: <true | false>,
     #   Weekly Update : <{} | {
-    #     Opponent: <username string>,
+    #     First User: <username string>
+    #     Second User: <username string>,
     #     Story: <exercise 1, exercise 2, exercise 3>,
     #   }>,
     #   Regular Update: <{} | {
@@ -89,16 +116,55 @@ class Crud(object):
     # }
     #
     # OUTPUT
-    # Same as GET output.
+    # Same as GET output for Regular Update and empty dict else.
     @withConnCursor
     def handle_post(c: sqlite3.Cursor, conn: sqlite3.Connection, request: Any) -> str:
-        # XXX Example query
-        # data = c.execute("""SELECT * FROM full_data ORDER BY time_ ASC;""").fetchall()
-        return "hello"
+        # In the first case we are updating weekly i.e. in a cron job
+        if request['Form']['Is Weekly Update']:
+            user1 = request['Form']['Weekly Update']['First User']
+            user2 = request['Form']['Weekly Update']['Second User']
+            story = request['Form']['Weekly Update']['Exercise']
+            
+            for user, opponent in [(user1, user2), (user2, user1)]:
+                c.execute(
+                    f"""UPDATE {Crud.USERS_TABLE}
+                        SET
+                        Story = ?,
+                        Progress = ?,
+                        LastWeekUpdated = ?,
+                        ActiveThisWeek = ?,
+                        Opponent = ?, 
+                        WHERE Username = ?;""", (
+                            story, 0, datetime.now(), True, opponent, 
+                            user))
+            return {}
+        
+        # In teh second case we are recieving a request from the user (frontend)
+        username = request['Form']["Regular Update"]['Username']
+        progress = request["Form"]["Regular Update"]["Progress"]
+
+        # Sanitize progress and update
+        progress = max(min(progress, 3), 0)
+        c.execute(f"""UPDATE {Crud.USERS_TABLE}
+                            SET Progress = ?,
+                            WHERE Username = ?;""", (progress, username))
+
+        # If the opponent does not have 3 points (i.e. not yet done)
+        # and we do, then we should increase our points
+        opponent_progress = int(c.execute(
+            f"""SELECT Progress FROM {Crud.USERS_TABLE} WHERE Username=?""",
+            (username,)).fetchall())
+        if progress == 3 and not opponent_progress < 3:
+            c.execute(f"""UPDATE {Crud.USERS_TABLE}
+                            SET CumulativePoints = CumulativePoints + 1,
+                            WHERE Username = ?;""", (username))
+        
+        # Return same output as the GET request
+        return Crud.handle_get({'Form' : {'Exists Test': False, "Username": username}})
 
 def request_handler(request: Any):
     if request['method'] == 'POST':
-        return "it was a post"
+        return Crud.handle_post(request)
     if request["method"] == "GET":
-        return "it was a get"
+        return Crud.handle_get(request)
 

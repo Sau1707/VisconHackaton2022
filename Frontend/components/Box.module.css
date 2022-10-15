@@ -7,7 +7,6 @@
 .flipCard {
     background-color: transparent;
     width: 100%;
-    height: 270px;
     perspective: 1000px;
 }
 
@@ -40,7 +39,7 @@
 }
 
 .flipCardBack {
-    background-color: #2980b9;
-    color: white;
+    background-color: #bbb;
+    color: black;
     transform: rotateX(180deg);
 }

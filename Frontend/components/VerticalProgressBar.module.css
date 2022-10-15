@@ -1,0 +1,48 @@
+.barBox {
+    position: relative;
+}
+
+.bar {
+    position: relative;
+    width: 20px;
+    height: 100%;
+    margin: auto;
+    border-radius: 25px;
+    background-color: aliceblue;
+}
+
+.barActive {
+    position: absolute;
+    height: 100%;
+    animation-name: barAnimation;
+    animation-duration: 6s;
+    width: 20px;
+    margin: auto;
+    border-radius: 25px;
+}
+
+@keyframes barAnimation {
+    from {
+        height: 0;
+    }
+
+    to {
+        height: 100%;
+    }
+}
+
+.dot {
+    position: absolute;
+    transform: translateX(-15px);
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background-color: rgb(0, 50, 94);
+}
+
+.endFlag {
+    position: absolute;
+    top: 600px;
+    transform: translateX(-50%);
+    width: 80px;
+}

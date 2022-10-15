@@ -1,0 +1,88 @@
+.flagBox {
+    height: 200px !important;
+    width: 150px !important;
+}
+
+.mainFlag {
+    /* */
+    height: 150px;
+    width: 150px;
+    z-index: 0;
+    position: relative;
+    border-left: 1px solid var(--flagsColor);
+    border-top: 1px solid var(--flagsColor);
+    border-right: 1px solid var(--flagsColor);
+    text-align: center;
+    line-height: 100px;
+    font-size: 30px;
+    background-color: var(--flagsColor);
+    animation-name: flagAnimationReverse;
+    animation-duration: 0.2s;
+    box-shadow: var(--flagsShadowColor);
+}
+
+.mainFlag:before {
+    content: "";
+    position: absolute;
+    height: 50%;
+    width: 52%;
+    left: -1px;
+    /*width of border*/
+    bottom: -30px;
+    z-index: -1;
+    -webkit-transform: skewY(-20deg);
+    transform: skewY(-20deg);
+    background-color: var(--flagsColor);
+    border-bottom: 1px solid var(--flagsColor);
+    border-left: 1px solid var(--flagsColor);
+    box-shadow: var(--flagsShadowColor);
+}
+
+.mainFlag:after {
+    content: "";
+    position: absolute;
+    height: 50%;
+    width: 52%;
+    right: -1px;
+    /*width of border*/
+    bottom: -30px;
+    z-index: -1;
+    -webkit-transform: skewY(20deg);
+    transform: skewY(20deg);
+    background-color: var(--flagsColor);
+    border-bottom: 1px solid var(--flagsColor);
+    border-right: 1px solid var(--flagsColor);
+    box-shadow: var(--flagsShadowColor);
+}
+
+.flagSelected {
+    height: 200px;
+    animation-name: flagAnimation;
+    animation-duration: 0.5s;
+    --flagsColor: rgb(3, 252, 52) !important;
+    --flagsShadowColor: 0px 0px 4px 0px rgba(112, 255, 7, 0.46);
+}
+
+@keyframes flagAnimation {
+    from {
+        height: 150px;
+    }
+
+    to {
+        height: 200px;
+    }
+}
+
+@keyframes flagAnimationReverse {
+    from {
+        height: 200px;
+    }
+
+    to {
+        height: 150px;
+    }
+}
+
+.image {
+    z-index: 1;
+}

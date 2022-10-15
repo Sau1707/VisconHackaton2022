@@ -1,5 +1,4 @@
 import style from "./Flag.module.css"
-import { Check, Question } from 'react-bootstrap-icons';
 
 export default function Flag(props) {
     return (

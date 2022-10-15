@@ -1,17 +1,42 @@
 import '../styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState, createContext } from "react";
+import { useEffect } from "react";
+import {
+    SessionProvider,
+    signIn,
+    useSession,
+} from "next-auth/react";
 
-export const UserContext = createContext()
 
-function MyApp({ Component, pageProps }) {
-    const [username, setUsername] = useState("");
-
+function MyApp({ Component, session, pageProps }) {
     return (
-        <UserContext.Provider value={{ username, setUsername }}>
-            <Component {...pageProps} />
-        </UserContext.Provider>
+        <SessionProvider session={session}>
+            {Component.public ? (
+                <Component {...pageProps} />) : (
+                <Auth>
+                    <Component {...pageProps} />
+                </Auth>
+            )}
+        </SessionProvider>
     )
 }
+
+
+const Auth = ({ children }) => {
+    const { data: session, status } = useSession()
+
+    const isUser = session?.user !== undefined;
+    useEffect(() => {
+        if (status === "loading") return;
+        if (!isUser) signIn();
+    }, [isUser, status]);
+
+    if (isUser) {
+        return <>{children}</>;
+    }
+
+    return <div>Loading...</div>;
+};
+
 
 export default MyApp

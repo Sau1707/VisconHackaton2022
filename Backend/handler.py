@@ -76,11 +76,11 @@ class Crud(object):
     @withConnCursor
     def handle_get(c: sqlite3.Cursor, conn: sqlite3.Connection, request: Any) -> str:
         # If the get request is getting existence then just return whether the user exists
-        username = request['Form']['Username']
+        username = request['Args']['Username']
         user_exists = len(c.execute(
                 f"""SELECT * FROM {Crud.USERS_TABLE} WHERE Username=?""",
                 (username,)).fetchall()) > 0
-        if request['Form']['Exists Test'].lower() == "true":
+        if request['Args']['Exists Test'].lower() == "true":
             return {"Exists": user_exists}
         # If the get request is getting the user return their data
         print("Generating User")
@@ -134,10 +134,10 @@ class Crud(object):
     @withConnCursor
     def handle_post(c: sqlite3.Cursor, conn: sqlite3.Connection, request: Any) -> str:
         # In the first case we are updating weekly i.e. in a cron job
-        if request['Form']['Is Weekly Update'].lower() == "true":
-            user1 = request['Form']['Username']
-            user2 = request['Form']['Opponent']
-            story = request['Form']['Story']
+        if request['Json']['Is Weekly Update'].lower() == "true":
+            user1 = request['Json']['Username']
+            user2 = request['Json']['Opponent']
+            story = request['Json']['Story']
             
             for user, opponent in [(user1, user2), (user2, user1)]:
                 c.execute(
@@ -146,7 +146,7 @@ class Crud(object):
             return {}
         
         # In teh second case we are recieving a request from the user (frontend)
-        username = request['Form']["Username"]
+        username = request['Json']["Username"]
         progress = int(request["Form"]["Progress"])
 
         # Sanitize progress and update
@@ -167,7 +167,7 @@ class Crud(object):
         
         # Return same output as the GET request
         conn.commit()
-        return Crud.handle_get({'Form' : {'Exists Test': "false", "Username": username}})
+        return Crud.handle_get({'Json' : {'Exists Test': "false", "Username": username}})
     
     # There is no input or output for this method, but it does
     # change the state of the server completely. It will get all the users, pair them,

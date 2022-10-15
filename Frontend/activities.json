@@ -1,0 +1,66 @@
+[
+    {
+        "name": "basketball",
+        "img": "/sports/basketball.png"
+    },
+    {
+        "name": "fitness",
+        "img": "/sports/fitness.png"
+    },
+    {
+        "name": "badminton",
+        "img": "/sports/badminton.png"
+    },
+    {
+        "name": "beachwolley",
+        "img": "/sports/beachwolley.png"
+    },
+    {
+        "name": "bigair",
+        "img": "/sports/bigair.png"
+    },
+    {
+        "name": "arrow",
+        "img": "/sports/arrow.png"
+    },
+    {
+        "name": "dance",
+        "img": "/sports/dance.png"
+    },
+    {
+        "name": "box",
+        "img": "/sports/box.png"
+    },
+    {
+        "name": "taekwondo",
+        "img": "/sports/taekwondo.png"
+    },
+    {
+        "name": "football",
+        "img": "/sports/football.png"
+    },
+    {
+        "name": "swimming",
+        "img": "/sports/swimming.png"
+    },
+    {
+        "name": "diving",
+        "img": "/sports/diving.png"
+    },
+    {
+        "name": "tabletennis",
+        "img": "/sports/tabletennis.png"
+    },
+    {
+        "name": "hiking",
+        "img": "/sports/hiking.png"
+    },
+    {
+        "name": "climbing",
+        "img": "/sports/climbing.png"
+    },
+    {
+        "name": "fencing",
+        "img": "/sports/fencing.png"
+    }
+]

@@ -1,7 +1,12 @@
 .flagGrid {
     margin: auto;
     width: fit-content;
+    max-width: fit-content;
+    justify-content: center;
+    gap: 30px;
+    row-gap: 60px;
     margin-top: 30px;
     display: flex;
-    gap: 30px
+    flex-wrap: wrap;
+
 }

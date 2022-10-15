@@ -5,7 +5,7 @@ import SelectableFlag from "../components/SelectableFlag";
 import { useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { Button } from "react-bootstrap";
-import axios from "axios";
+import { getUserExists, addNewUser } from "../fetch/get"
 
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce turpis odio, interdum eu nibh in, volutpat ullamcorper massa. Maecenas consectetur, elit vitae dictum fringilla, leo odio ornare quam, congue mattis diam arcu id urna. Suspendisse ut tortor facilisis massa scelerisque fringilla et et nibh."
 
@@ -36,45 +36,37 @@ function generateFlags() {
 
     return flags
 }
+
+const testUsername = "test"
+// session.user.name
 export default function Home() {
     const { data: session, status } = useSession();
-    const [firstLogin, setfirstLogin] = useState(true)
-    const [activeFlags, setActiveFlags] = useState(generateFlags())
+    const [firstLogin, setfirstLogin] = useState(true);
+    const [activeFlags, setActiveFlags] = useState(generateFlags());
+
+    /* Make http request tor */
+    getUserExists(testUsername).then(e => {
+        if (e.data.Exists) setfirstLogin(false)
+        else console.log("First login ")
+    })
 
     const updateActiveFlags = (el) => {
         let flags = { ...activeFlags }
         flags[el] = !flags[el]
         setActiveFlags(flags)
     }
-    const savePreferences = () => {
-        const data = {
-            "Username": "lsaurwein",
-            "Exists Test": true
-        }
 
-
-        
-
-        axios({
-            method: "get",
-            url: "/backend",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            params: data,
-            //data: data, // use this when you do a post
-        }).then(e => console.log(e))
-        //fetch("/backend", {
-        //    method: 'GET', // *GET, POST, PUT, DELETE, etc.
-        //    body: JSON.stringify(data)
-        //}).then(e => console.log(e))
-        ////setfirstLogin(false)
+    const savePreferences = async () => {
+        // TODO: add preferences
+        // IDEA: make people chose at least 3
+        addNewUser(testUsername).then(e => console.log(e))
+        setfirstLogin(false)
     }
 
     if (firstLogin) {
         return (
             <>
-                <h1 style={{ textAlign: "center" }}> Welcome {session.user.name} to ??? </h1>
+                <h1 style={{ textAlign: "center" }}> Welcome {testUsername} to ??? </h1>
                 <h4 style={{ textAlign: "center" }}> Please select your sports preferences</h4>
                 <FlagBox>
                     {Object.keys(ACTIVITIES).map((e, i) => (

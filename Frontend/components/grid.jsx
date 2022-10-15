@@ -5,7 +5,7 @@ import { Row, Col } from "react-bootstrap";
 export default function Grid(props) {
     console.log()
     return (
-        <Container className={style.mainBox}>
+        <Container className={style.mainBox} style = {{...props.style}}>
             <Row xs={1} md={2}>
                 {props.children.map((e, i) => (
                     <Col

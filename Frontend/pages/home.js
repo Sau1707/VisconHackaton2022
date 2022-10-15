@@ -3,9 +3,12 @@ import Box from "../components/box"
 import { useRouter } from 'next/router'
 import { UserContext } from "./_app"
 import { useContext, useEffect } from "react";
+import { useSession, signOut, signIn } from "next-auth/react";
 
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce turpis odio, interdum eu nibh in, volutpat ullamcorper massa. Maecenas consectetur, elit vitae dictum fringilla, leo odio ornare quam, congue mattis diam arcu id urna. Suspendisse ut tortor facilisis massa scelerisque fringilla et et nibh."
+
 export default function Home() {
+    const { data: session, status } = useSession();
     const { username, setUsername } = useContext(UserContext)
     const router = useRouter()
     const hrefLogin = "/"

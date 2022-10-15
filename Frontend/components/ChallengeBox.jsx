@@ -29,10 +29,6 @@ export default function ChallengeBox(props) {
         return () => confetti.clear();
     }, []) // add the var dependencies or not
 
-    //temporary list of the sports involved in the challenge
-    var sport1 = "Basketball"
-    var sport2 = "Freies Sporttreiben"
-    var sport3 = "Zumba"
 
     const router = useRouter()
 

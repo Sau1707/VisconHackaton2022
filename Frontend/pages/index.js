@@ -70,7 +70,7 @@ export default function Home() {
 
     return (
         <>
-            <h1 style={{ textAlign: "center", marginTop: "3vh", background: "none" }}> Welcome {session.user.name} </h1>
+            <h1 style={{ textAlign: "center", marginTop: "10vh", background: "none" }}> Welcome {session.user.name} </h1>
             <button onClick={() => signOut("vseth-keycloak")}>Sign out</button>
             <Grid>
                 <Box

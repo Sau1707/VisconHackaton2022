@@ -26,6 +26,11 @@ export default function ChallengeBox(props) {
         return () => confetti.clear();
     }, []) // add the var dependencies or not
 
+    //temporary list of the sports involved in the challenge
+    var sport1 = "Basketball"
+    var sport2 = "Jujitsu"
+    var sport3 = "Ballet"
+
     return (
         <>
             <canvas className={style.confetti} id="my-canvas" />
@@ -41,11 +46,11 @@ export default function ChallengeBox(props) {
                             onOver
                             height={150}
                             front={
-                                <h3 style={{ padding: 50 }}> Basket </h3>
+                                <h3 style={{ padding: 50 }}>{sport1}</h3>
                             }
                             back={
                                 <div style={{ padding: 30 }}>
-                                    <h5> Basket: Challenge of the week </h5>
+                                    <h5>{sport1}: Challenge of the week </h5>
                                     <h6> {loremIpsum} </h6>
                                 </div>
                             }
@@ -54,11 +59,11 @@ export default function ChallengeBox(props) {
                         <Box
                             height={150}
                             front={
-                                <h3 style={{ padding: 50 }}> Aqua Fitness </h3>
+                                <h3 style={{ padding: 50 }}>{sport2}</h3>
                             }
                             back={
                                 <div style={{ padding: 30 }}>
-                                    <h5> Aqua Fitness: Challenge of the week </h5>
+                                    <h5>{sport2}: Challenge of the week </h5>
                                     <h6> {loremIpsum} </h6>
                                 </div>
                             }
@@ -67,11 +72,11 @@ export default function ChallengeBox(props) {
                         <Box
                             height={150}
                             front={
-                                <h3 style={{ padding: 50 }}> BigAir </h3>
+                                <h3 style={{ padding: 50 }}> {sport3} </h3>
                             }
                             back={
                                 <div style={{ padding: 30 }}>
-                                    <h5> BigAir: Challenge of the week </h5>
+                                    <h5>{sport3}: Challenge of the week </h5>
                                     <h6> {loremIpsum} </h6>
                                 </div>
                             }

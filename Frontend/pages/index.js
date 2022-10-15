@@ -5,6 +5,7 @@ import SelectableFlag from "../components/SelectableFlag";
 import { useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { Button } from "react-bootstrap";
+import axios from "axios";
 
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce turpis odio, interdum eu nibh in, volutpat ullamcorper massa. Maecenas consectetur, elit vitae dictum fringilla, leo odio ornare quam, congue mattis diam arcu id urna. Suspendisse ut tortor facilisis massa scelerisque fringilla et et nibh."
 
@@ -46,9 +47,30 @@ export default function Home() {
         setActiveFlags(flags)
     }
     const savePreferences = () => {
-        /* */
-        setfirstLogin(false)
+        const data = {
+            "Username": "lsaurwein",
+            "Exists Test": true
+        }
+
+
+        
+
+        axios({
+            method: "get",
+            url: "/backend",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            params: data,
+            //data: data, // use this when you do a post
+        }).then(e => console.log(e))
+        //fetch("/backend", {
+        //    method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        //    body: JSON.stringify(data)
+        //}).then(e => console.log(e))
+        ////setfirstLogin(false)
     }
+
     if (firstLogin) {
         return (
             <>

@@ -56,7 +56,7 @@
 }
 
 .flagSelected {
-    height: 200px;
+    height: 170px;
     animation-name: flagAnimation;
     animation-duration: 0.5s;
     --flagsColor: rgb(3, 252, 52) !important;
@@ -69,13 +69,13 @@
     }
 
     to {
-        height: 200px;
+        height: 170px;
     }
 }
 
 @keyframes flagAnimationReverse {
     from {
-        height: 200px;
+        height: 170px;
     }
 
     to {

@@ -1,91 +1,29 @@
 import Box from "../components/Box"
 import Grid from "../components/Grid"
-import FlagBox from "../components/FlagBox";
-import SelectableFlag from "../components/SelectableFlag";
-import { useState } from "react";
 import { useSession, signOut } from "next-auth/react";
-import { Button } from "react-bootstrap";
 import { getUserExists, addNewUser } from "../fetch/get"
+import { useRouter } from 'next/router'
+import Avatar from "../components/Avatar"
 
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce turpis odio, interdum eu nibh in, volutpat ullamcorper massa. Maecenas consectetur, elit vitae dictum fringilla, leo odio ornare quam, congue mattis diam arcu id urna. Suspendisse ut tortor facilisis massa scelerisque fringilla et et nibh."
 
-const ACTIVITIES = {
-    basketball: "/sports/basketball.png",
-    fitness: "/sports/fitness.png",
-    badminton: "/sports/badminton.png",
-    beachwolley: "/sports/beachwolley.png",
-    bigair: "/sports/bigair.png",
-    arrow: "/sports/arrow.png",
-    dance: "/sports/dance.png",
-    box: "/sports/box.png",
-    taekwondo: "/sports/taekwondo.png",
-    football: "/sports/football.png",
-    swimming: "/sports/swimming.png",
-    diving: "/sports/diving.png",
-    tabletennis: "/sports/tabletennis.png",
-    hiking: "/sports/hiking.png",
-    climbing: "/sports/climbing.png",
-    fencing: "/sports/fencing.png",
-}
 
-function generateFlags() {
-    let flags = {}
-    Object.keys(ACTIVITIES).forEach(e => {
-        flags[e] = false
-    })
+const testUsername = "" // session.user.name
 
-    return flags
-}
-
-const testUsername = "test"
-// session.user.name
 export default function Home() {
+    const router = useRouter()
     const { data: session, status } = useSession();
-    const [firstLogin, setfirstLogin] = useState(true);
-    const [activeFlags, setActiveFlags] = useState(generateFlags());
 
-    /* Make http request tor */
+    /* Check if user exist, if dont -> resent to ask for preferences */
     getUserExists(testUsername).then(e => {
-        if (e.data.Exists) setfirstLogin(false)
-        else console.log("First login ")
+        if (!e.data.Exists) router.push("/preferences")
+        else console.log("User already logged")
     })
-
-    const updateActiveFlags = (el) => {
-        let flags = { ...activeFlags }
-        flags[el] = !flags[el]
-        setActiveFlags(flags)
-    }
-
-    const savePreferences = async () => {
-        // TODO: add preferences
-        // IDEA: make people chose at least 3
-        addNewUser(testUsername).then(e => console.log(e))
-        setfirstLogin(false)
-    }
-
-    if (firstLogin) {
-        return (
-            <>
-                <h1 style={{ textAlign: "center" }}> Welcome {testUsername} to ??? </h1>
-                <h4 style={{ textAlign: "center" }}> Please select your sports preferences</h4>
-                <FlagBox>
-                    {Object.keys(ACTIVITIES).map((e, i) => (
-                        <SelectableFlag selected={activeFlags[e]} key={i} name={e} onClick={updateActiveFlags} img={ACTIVITIES[e]} />
-                    ))}
-                </FlagBox>
-                <div style={{ margin: "auto", marginTop: 100, marginBottom: 100, width: "fit-content" }}>
-                    <Button onClick={savePreferences}> Save preferences </Button>
-                </div>
-            </>
-        )
-
-    }
-
 
     return (
         <>
-            <h1 style={{ textAlign: "center", marginTop: "10vh", background: "none" }}> Welcome {session.user.name} </h1>
-            <button onClick={() => signOut("vseth-keycloak")}>Sign out</button>
+            <h1 style={{ textAlign: "center", marginTop: "5vh", background: "none" }}> Welcome {session.user.name} </h1>
+            <Avatar />
             <Grid>
                 <Box
                     href=""

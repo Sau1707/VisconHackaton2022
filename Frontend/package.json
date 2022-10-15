@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/fiber": "^8.8.10",
     "axios": "^1.1.2",
     "bootstrap": "^5.2.2",
     "bootstrap-icons": "^1.9.1",
@@ -22,7 +23,8 @@
     "react-chartjs-2": "^4.3.1",
     "react-circular-progressbar": "^2.1.0",
     "react-dom": "18.2.0",
-    "react-move": "^6.5.0"
+    "react-move": "^6.5.0",
+    "three": "^0.145.0"
   },
   "devDependencies": {
     "eslint": "8.25.0",

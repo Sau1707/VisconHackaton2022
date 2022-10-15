@@ -18,7 +18,7 @@ import { VALID_LOADERS } from "next/dist/shared/lib/image-config";
 // Notice how the OrbitControls classname becomes lowercase orbitControls when used as JSX element.
 extend({ OrbitControls });
 
-function Loading() {
+ function Loading() {
   return (
     <mesh visible position={[0, 0, 0]} rotation={[0, 0, 0]}>
       <sphereGeometry attach="geometry" args={[1, 16, 16]} />
@@ -31,9 +31,8 @@ function Loading() {
         metalness={0}
       />
     </mesh>
-  );
+  ); 
 }
-
 
 function ArWing() {
     const group = useRef();
@@ -42,12 +41,7 @@ function ArWing() {
     return (
       <group ref={group}>
         <mesh visible geometry={nodes.cup001.geometry} material = {materials['palette.001']}>
-          <meshStandardMaterial
-            attach="material"
-            color="white"
-            roughness={0.3}
-            metalness={0.3}
-          />
+          
         </mesh>
       </group>
     );

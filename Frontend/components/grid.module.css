@@ -1,14 +1,15 @@
 .mainBox {
+    position: fixed;
+    bottom: 0;
     width: 100vw;
-    height: 100vh;
+    height: fit-content;
     margin: 0 !important;
     max-width:  100%;
-    background-color: rebeccapurple;
 }
 
 .fake {
     position: relative;
     margin: auto;
     padding: 20px;
-    height: 50vh;
+    height: auto;
 }

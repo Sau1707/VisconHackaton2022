@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^1.1.2",
     "bootstrap": "^5.2.2",
     "bootstrap-icons": "^1.9.1",
     "chart.js": "^3.9.1",

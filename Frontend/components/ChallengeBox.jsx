@@ -10,6 +10,8 @@ const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fus
 
 const barsHeight = 600
 
+// TODO: change box height
+
 export default function ChallengeBox(props) {
 
     useEffect(() => {
@@ -28,8 +30,8 @@ export default function ChallengeBox(props) {
 
     //temporary list of the sports involved in the challenge
     var sport1 = "Basketball"
-    var sport2 = "Jujitsu"
-    var sport3 = "Ballet"
+    var sport2 = "Freies Sporttreiben"
+    var sport3 = "Zumba"
 
     return (
         <>
@@ -44,40 +46,40 @@ export default function ChallengeBox(props) {
                         <h4> Challeges </h4>
                         <Box
                             onOver
-                            height={150}
+                            height={200}
                             front={
-                                <h3 style={{ padding: 50 }}>{sport1}</h3>
+                                <h3 style={{ padding: 80 }}>{sport1}</h3>
                             }
                             back={
                                 <div style={{ padding: 30 }}>
                                     <h5>{sport1}: Challenge of the week </h5>
-                                    <h6> {loremIpsum} </h6>
+                                    <h6> {props.sportsData[sport1]} </h6>
                                 </div>
                             }
                         />
                         <br />
                         <Box
-                            height={150}
+                            height={200}
                             front={
-                                <h3 style={{ padding: 50 }}>{sport2}</h3>
+                                <h3 style={{ padding: 80 }}>{sport2}</h3>
                             }
                             back={
                                 <div style={{ padding: 30 }}>
                                     <h5>{sport2}: Challenge of the week </h5>
-                                    <h6> {loremIpsum} </h6>
+                                    <h6> {props.sportsData[sport2]} </h6>
                                 </div>
                             }
                         />
                         <br />
                         <Box
-                            height={150}
+                            height={200}
                             front={
-                                <h3 style={{ padding: 50 }}> {sport3} </h3>
+                                <h3 style={{ padding: 80 }}> {sport3} </h3>
                             }
                             back={
                                 <div style={{ padding: 30 }}>
                                     <h5>{sport3}: Challenge of the week </h5>
-                                    <h6> {loremIpsum} </h6>
+                                    <h6> {props.sportsData[sport3]} </h6>
                                 </div>
                             }
                         />

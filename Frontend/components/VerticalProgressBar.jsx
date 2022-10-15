@@ -2,9 +2,7 @@ import { useState, useEffect } from "react"
 import style from "./VerticalProgressBar.module.css"
 import { Check, Question } from 'react-bootstrap-icons';
 
-/* 
-
-*/
+// TODO: add checkbox features to record progress in the challenge 
 
 const margin = 40
 const steps = [16, 45, 75]

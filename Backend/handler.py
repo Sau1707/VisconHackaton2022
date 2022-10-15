@@ -173,3 +173,5 @@ def request_handler(request: Any):
     if request["Method"] == "GET":
         return Crud.handle_get(request)
 
+def weekly_update_handler():
+    return "TBD" # XXX

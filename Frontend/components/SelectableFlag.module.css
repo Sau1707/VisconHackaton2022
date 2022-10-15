@@ -3,6 +3,7 @@
     width: 150px !important;
 }
 
+
 .mainFlag {
     /* */
     height: 150px;
@@ -85,4 +86,10 @@
 
 .image {
     z-index: 1;
+    margin-top: -20px;
+}
+
+.title {
+    color: black;
+    margin-top: 15px;
 }

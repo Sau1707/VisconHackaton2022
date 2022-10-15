@@ -10,4 +10,5 @@
 .confetti {
     position: absolute;
     margin: auto;
+    z-index: -10;
 }

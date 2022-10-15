@@ -1,16 +1,17 @@
+import style from "./grid.module.css"
 import Container from 'react-bootstrap/Container';
 import { Row, Col } from "react-bootstrap";
 
 export default function Grid(props) {
+    console.log()
     return (
-        <Container>
-            <Row>
-                <Col xs={12} md={8}>
-                    xs=12 md=8
-                </Col>
-                <Col xs={6} md={4}>
-                    xs=6 md=4
-                </Col>
+        <Container className={style.mainBox}>
+            <Row xs={1} md={2}>
+                {props.children.map(e => (
+                    <Col className={style.fake}>
+                        {e}
+                    </Col>
+                ))}
             </Row>
         </Container>
     );

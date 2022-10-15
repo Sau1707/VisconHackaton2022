@@ -159,8 +159,9 @@ class Crud(object):
             f"""SELECT Progress FROM {Crud.USERS_TABLE} WHERE Username=?""",
             (username,)).fetchall()
         assert len(opponent_progress_) == 1 and len(opponent_progress_[0]) == 1
-        print(opponent_progress_)
         opponent_progress = int(opponent_progress_[0][0])
+        # The frontend should make sure to stop the users from toggling off and back on again,
+        # because otherwise they can get infinite points here.
         if progress == 3 and not opponent_progress < 3:
             c.execute(f"""UPDATE {Crud.USERS_TABLE} SET CumulativePoints = CumulativePoints + 1 WHERE Username = ?;""", (username,))
         

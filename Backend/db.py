@@ -65,6 +65,12 @@ class HistoryAction(Enum):
         return HistoryAction(serialized)
     def serialize(self: HistoryAction) -> int:
         return self.value
+    def name(self: HistoryAction) -> str:
+        return (
+            "InProgressExercise" if self == HistoryAction.InProgressExercise else
+            "FinishedExercise" if self == HistoryAction.FinishedExercise else
+            "CancelledExercise"
+        )
 
 # https://docs.sqlalchemy.org/en/20/core/engines.html
 DATABASE_ENGINE = create_engine("sqlite:///users.db", echo=False)
@@ -118,12 +124,12 @@ class HistoryEntry(Base):
     __tablename__ = HISTORY_TABLE
 
     # TODO we will want to have Username linked to those in the UserEntry table
-    Username            = Column(String, primary_key=True)
-    Opponent            = Column(String)
-    Victor              = Column(String)
+    Id                  = Column(Integer, primary_key=True)
+    Username            = Column(String)
     Action              = Column(Integer) # Serialized/HistoryAction
     ActionName          = Column(String)
     ActivityId          = Column(Integer)
+    ActivityName        = Column(String)
     Date                = Column(DateTime)
 
 BADGE_TABLE = "badge_table"

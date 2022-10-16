@@ -5,7 +5,7 @@ import { Container, Row, Col } from "react-bootstrap"
 import { useRouter } from 'next/router'
 
 import VerticalProgressBar from "./VerticalProgressBar"
-import Box from "./box"
+import Box from "./Box"
 
 import ACTIVITIES from "../activities.json"
 

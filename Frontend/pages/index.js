@@ -5,7 +5,10 @@ import { getUserExists, addNewUser } from "../fetch/get"
 import { useRouter } from 'next/router'
 import Avatar from "../components/Avatar"
 
-const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce turpis odio, interdum eu nibh in, volutpat ullamcorper massa. Maecenas consectetur, elit vitae dictum fringilla, leo odio ornare quam, congue mattis diam arcu id urna. Suspendisse ut tortor facilisis massa scelerisque fringilla et et nibh."
+const ChallengesText = "Level up your fitness game by competing with others for flags and... maybe... legendary trophies. Every week a new challenge is issued and players are paired by skill level, commitment, and interests. The first to complete the tasks wins that weeks' flag. With enough flags, you will find greater rewards to encourage you forward into a way of lifelong health and vigor."
+const TeamText = "Coming soon."
+const CaptureTheFlagText = "Don't just be healthy, have fun and learn new things! By participating in a large variety of ASVZ's sports you can earn badges representing your willingness to leave your comfort zone. Show off your collection to friends or use them for unique vouchers at affiliated organizations."
+const AchievementsText = "Relive your past victories and track your stats using the achievments section. The best way to improve is to know how far you've come and understand your strengthes and weaknesses, and the best way to know, is to keep track of your progress. We handle the details for you, so you can focus on your journey and guide your decisions far into the future."
 
 
 const testUsername = "" // session.user.name
@@ -26,51 +29,47 @@ export default function Home() {
             <Avatar />
             <Grid>
                 <Box
-                    href=""
-                    title="Team"
-                    front={
-                        <h1 style={{ padding: 100 }}> Team </h1>
-                    }
+                    href="challenges"
+                    image="/dalle/challenge.png"
+                    front={<></>}
                     back={
                         <div style={{ padding: 30 }}>
-                            <h2 > Team </h2>
-                            <h5> {loremIpsum} </h5>
+                            <h2 className="with-eight" style={{ fontWeight: "bold" }}> Challenges </h2>
+                            <h5 className="with-eight" > {ChallengesText} </h5>
+                        </div>
+                    }
+                />
+                <Box
+                    href=""
+                    title="Team"
+                    image="/dalle/team.png"
+                    front={<></>}
+                    back={
+                        <div style={{ padding: 30 }}>
+                            <h2 className="with-eight" style={{ fontWeight: "bold" }}> Team </h2>
+                            <h5 className="with-eight"> {TeamText} </h5>
                         </div>
                     }
                 />
                 <Box
                     href="capture"
-                    front={
-                        <h1 style={{ padding: 100 }}> Capture The Flag </h1>
-                    }
+                    image="/dalle/cups.png"
+                    front={<></>}
                     back={
                         <div style={{ padding: 30 }}>
-                            <h2> Capture The Flag  </h2>
-                            <h5> {loremIpsum} </h5>
-                        </div>
-                    }
-                />
-                <Box
-                    href="challenges"
-                    front={
-                        <h1 style={{ padding: 100 }}> Challenges </h1>
-                    }
-                    back={
-                        <div style={{ padding: 30 }}>
-                            <h2> Challenges </h2>
-                            <h5> {loremIpsum} </h5>
+                            <h2 className="with-eight" style={{ fontWeight: "bold" }}> Capture The Flag  </h2>
+                            <h5 className="with-eight"> {CaptureTheFlagText} </h5>
                         </div>
                     }
                 />
                 <Box
                     href="achievements"
-                    front={
-                        <h1 style={{ padding: 100 }}> My Achievements </h1>
-                    }
+                    image="/dalle/plot.png"
+                    front={<></>}
                     back={
                         <div style={{ padding: 30 }}>
-                            <h2> My Achievements </h2>
-                            <h5> {loremIpsum} </h5>
+                            <h2 className="with-eight" style={{ fontWeight: "bold" }}> My Achievements </h2>
+                            <h5 className="with-eight" > {AchievementsText} </h5>
                         </div>
                     }
                 />

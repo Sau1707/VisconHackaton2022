@@ -13,10 +13,17 @@ export default function Box(props) {
         <div {...props} style={{ height: props.height ? props.height : 270 }} className={style.flipCard} onClick={redirect}>
             <div className={style.flipCardInner}>
                 <div className={style.flipCardFront}>
-                    <div> {props.front} </div>
+                    <div className={style.imageBox}>
+                        <div className={style.imageElement}> {props.front} </div>
+                        {props.image ? <img className={style.image} src={props.image} /> : <></>}
+                    </div>
+
                 </div>
                 <div className={style.flipCardBack}>
-                    <div> {props.back} </div>
+                    <div className={style.imageBox}>
+                        <div className={style.imageElement}> {props.back} </div>
+                        {props.image ? <img style={{ filter: "blur(2px) brightness(1.6)" }} className={style.image} src={props.image} /> : <></>}
+                    </div>
                 </div>
             </div>
         </div>

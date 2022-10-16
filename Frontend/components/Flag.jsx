@@ -1,5 +1,6 @@
 import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 import { FiX } from 'react-icons/fi';
+import Trophy from "../pages/trophy"
 import { useState } from "react"
 import style from "./Flag.module.css"
 
@@ -24,15 +25,8 @@ export default function Flag(props) {
                 open={open}
                 onClose={() => setOpen(false)}
             >
-                <DialogTitle> Demo element
-                    <div className={style.dialogTools}>
-                        <FiX
-                            size={30}
-                            color="red"
-                            cursor="pointer"
-                            onClick={() => { }}
-                        />
-                    </div>
+                <DialogTitle style = {{height: "300px"}}> 
+                    <Trophy />
                 </DialogTitle>
                 <DialogContent>
                 </DialogContent >

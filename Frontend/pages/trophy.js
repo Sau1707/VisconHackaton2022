@@ -35,14 +35,14 @@ function Loading() {
         </mesh>
     );
 }
-
+//var angle= 0.0;
 function ArWing() {
     const group = useRef();
     const { nodes, materials } = useLoader(GLTFLoader, "/models/trophy.glb");
     console.log(materials);
     return (
         <group ref={group}>
-            <mesh visible geometry={nodes.cup001.geometry} material={materials['palette.001']}>
+            <mesh visible geometry={nodes.cup001.geometry} rotation={[0.7,0.65, 1.8]} material={materials['palette.001']}>
                 <meshPhysicalMaterial attach="material" color="#FFFF00" roughness="0.7"
                     transmission="0.4"
                     thickness="1" />
@@ -60,10 +60,10 @@ const CameraControls = () => {
         camera,
         gl: { domElement }
     } = useThree();
-    camera.position.x = 20;
-    camera.position.y = 20;
+    camera.position.x = 10;
+    camera.position.y = 10;
     camera.position.z = 0;
-
+    
     // Ref to the controls, so that we can update them on every frame using useFrame
     const controls = useRef();
     useFrame(state => controls.current.update());
@@ -86,12 +86,11 @@ function animate() {
 
     // required if controls.enableDamping or controls.autoRotate are set to true
     controls.update();
-
+    
     renderer.render(scene, camera);
 
 }
-
-export default function App() {
+ function App() {
     return (
         <>
             <Canvas style={{
@@ -100,7 +99,7 @@ export default function App() {
             }}>
                 <CameraControls />
                 <pointLight position={[-20, 15, -20]} intensity={0.15} />
-                <pointLight position={[-15, 10, -20]} intensity={0.65} />
+                <pointLight position={[-15, 10, 20]} intensity={0.65} />
                 <Suspense fallback={<Loading />}>
                     <ArWing />
                 </Suspense>
@@ -108,3 +107,5 @@ export default function App() {
         </>
     );
 }
+
+export default App;

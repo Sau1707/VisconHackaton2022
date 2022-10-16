@@ -27,7 +27,19 @@ import {
       legend: {
         position: "bottom",
       },
-    }
+    },
+    scales: {
+      x: {
+          ticks: {
+              color: 'white'
+          }
+      },
+      y: {
+        ticks: {
+          color: 'white'
+        }
+      }
+  }
   };
   
   export const data = {
@@ -36,8 +48,8 @@ import {
       {
         label: "My wins",
         data: [0, 1, 2, 2, 2, 3],
-        backgroundColor: "#FFCA29",
-        borderColor: "#FFCA29",
+        backgroundColor: "#00FF00",
+        borderColor: "#00FF00",
       },
     ],
   };

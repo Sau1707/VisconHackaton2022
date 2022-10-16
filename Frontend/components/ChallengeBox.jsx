@@ -5,13 +5,13 @@ import { Container, Row, Col } from "react-bootstrap"
 import { useRouter } from 'next/router'
 
 import VerticalProgressBar from "./VerticalProgressBar"
-import Box from "./box"
+import Box from "./Box"
+
+import ACTIVITIES from "../activities.json"
 
 const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce turpis odio, interdum eu nibh in, volutpat ullamcorper massa. Maecenas consectetur, elit vitae dictum fringilla, leo odio ornare quam, congue mattis diam arcu id urna. Suspendisse ut tortor facilisis massa scelerisque fringilla et et nibh."
 
 const barsHeight = 600
-
-// TODO: change box height
 
 export default function ChallengeBox(props) {
 
@@ -32,26 +32,13 @@ export default function ChallengeBox(props) {
 
     const router = useRouter()
 
-    const redirect = (e) => {
-        e.preventDefault();
-        `${props.href}${props.sportsData[sport1].number}` ? router.push(`${props.href}${props.sportsData[sport1].number}`) : null
+    const redirect = (search) => {
+        router.push(search)
     }
 
-
-    const redirect1 = (e) => {
-        e.preventDefault();
-        `${props.href}${props.sportsData[sport2].number}` ? router.push(`${props.href}${props.sportsData[sport2].number}`) : null
-    }
-
-    const redirect2 = (e) => {
-        e.preventDefault();
-        `${props.href}${props.sportsData[sport3].number}` ? router.push(`${props.href}${props.sportsData[sport3].number}`) : null
-    }
-
-
-    var sport1 = "Aikido"
-    var sport2 = "Freies Sporttreiben"
-    var sport3 = "Zumba"
+    const sport1 = props.sports[0]
+    const sport2 = props.sports[1]
+    const sport3 = props.sports[2]
 
     return (
         <>
@@ -63,48 +50,51 @@ export default function ChallengeBox(props) {
                         <VerticalProgressBar right current={props.user} height={barsHeight} step={1} />
                     </Col>
                     <Col xs={6}>
-                        <h4> Challeges </h4>
-                        <div onClick={redirect}>
+                        <br />
+                        <div onClick={() => redirect(sport1.search)}>
                             <Box
                                 onOver
                                 height={200}
+                                image={sport1.src}
                                 front={
-                                    <h3 style={{ padding: 80 }}>{sport1}</h3>
+                                    <></>
                                 }
                                 back={
                                     <div style={{ padding: 30 }}>
-                                        <h5>{sport1}: Challenge of the week </h5>
-                                        <h6> {props.sportsData[sport1].summary} </h6>
+                                        <h5 className="with-eight" >{sport1.name.charAt(0).toUpperCase() + sport1.name.slice(1)}: Challenge of the week </h5>
+                                        <h6 className="with-eight" > {sport1.summary} </h6>
                                     </div>
                                 }
                             />
                         </div>
                         <br />
-                        <div onClick={redirect1}>
+                        <div onClick={() => redirect(sport2.search)}>
                             <Box
                                 height={200}
+                                image={sport2.src}
                                 front={
-                                    <h3 style={{ padding: 80 }}>{sport2}</h3>
+                                    <></>
                                 }
                                 back={
                                     <div style={{ padding: 30 }}>
-                                        <h5>{sport2}: Challenge of the week </h5>
-                                        <h6> {props.sportsData[sport2].summary} </h6>
+                                        <h5 className="with-eight">{sport2.name.charAt(0).toUpperCase() + sport2.name.slice(1)}{sport2.name}: Challenge of the week </h5>
+                                        <h6 className="with-eight"> {sport2.summary} </h6>
                                     </div>
                                 }
                             />
                         </div>
                         <br />
-                        <div onClick={redirect2}>
+                        <div onClick={() => redirect(sport3.search)}>
                             <Box
                                 height={200}
+                                image={sport3.src}
                                 front={
-                                    <h3 style={{ padding: 80 }}> {sport3} </h3>
+                                    <></>
                                 }
                                 back={
                                     <div style={{ padding: 30 }}>
-                                        <h5>{sport3}: Challenge of the week </h5>
-                                        <h6> {props.sportsData[sport3].summary} </h6>
+                                        <h5 className="with-eight">{sport3.name.charAt(0).toUpperCase() + sport3.name.slice(1)}: Challenge of the week </h5>
+                                        <h6 className="with-eight"> {sport3.summary} </h6>
                                     </div>
                                 }
                             />

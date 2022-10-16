@@ -8,7 +8,7 @@ class Tracker extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            percentage: 60
+            percentage: props.percentage
         };
     }
 
@@ -20,7 +20,7 @@ class Tracker extends Component {
         }
         return (
             <div style = {myStyle}>
-                <CircularProgressbar value={this.state.percentage} text={`${this.state.percentage}%` } strokeWidth={20} styles={buildStyles({
+                <CircularProgressbar value={this.state.percentage} text={`${this.state.percentage}%` } strokeWidth={18} styles={buildStyles({
           pathColor: "fuchsia", textColor: "fuchsia"
         })}/>
             </div>

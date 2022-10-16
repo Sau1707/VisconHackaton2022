@@ -1,66 +1,114 @@
 [
     {
         "name": "basketball",
-        "img": "/sports/basketball.png"
+        "img": "/sports/basketball.png",
+        "src": "https://asvz.ch/sites/default/files/styles/hero_sm_1x/public/sport/images/mood/ASVZ%203X3%20Turnier_Fotograf%20Christian%20Rosenberger_20_0.jpg?h=cb374ca0&itok=28bJItNb",
+        "search": "https://asvz.ch/426-sportfahrplan?f[0]=sport:45625",
+        "summary": "Basketball is a great way to stay in shape and have fun at the same time. Shoot some hoops today!"
     },
     {
         "name": "fitness",
-        "img": "/sports/fitness.png"
+        "img": "/sports/fitness.png",
+        "src": "https://asvz.ch/sites/default/files/styles/hero_xl_1x/public/sport/images/mood/SC%20Hoenggerberg%20Fotograf%20Jan%20Sobotkiewicz_0.jpg?h=057bda1c&itok=lOJDOb-g",
+        "search": "https://asvz.ch/426-sportfahrplan?f[0]=sport:122920",
+        "summary": "eee"
     },
     {
         "name": "badminton",
-        "img": "/sports/badminton.png"
+        "img": "/sports/badminton.png",
+        "src": "https://asvz.ch/sites/default/files/styles/hero_xl_1x/public/sport/images/mood/Training%20SC%20Irchel.jpg?h=db80494e&itok=SvA2Rr3I",
+        "search": "https://asvz.ch/426-sportfahrplan?f[0]=sport:45622",
+        "summary": ""
     },
     {
         "name": "beachwolley",
-        "img": "/sports/beachwolley.png"
+        "img": "/sports/beachwolley.png",
+        "src": "https://asvz.ch/sites/default/files/styles/hero_xl_1x/public/sport/images/mood/Beachvolleyball%20Schlag%20am%20Netz_Fotograf%20Angelo%20Brack.jpg?h=0cfb3fa5&itok=UqspDWIR",
+        "search": "https://asvz.ch/426-sportfahrplan?f[0]=sport:45627",
+        "summary": ""
     },
     {
         "name": "bigair",
-        "img": "/sports/bigair.png"
+        "img": "/sports/bigair.png",
+        "src": "https://asvz.ch/sites/default/files/styles/hero_xl_1x/public/sport/images/mood/AB_2017_ASVZBigAir-339_1.jpg?h=e5b90854&itok=LBJ5fvKh",
+        "search": "https://asvz.ch/426-sportfahrplan?f[0]=sport:45628",
+        "summary": ""
     },
     {
-        "name": "arrow",
-        "img": "/sports/arrow.png"
+        "name": "archery",
+        "img": "/sports/arrow.png",
+        "src": "https://asvz.ch/sites/default/files/styles/hero_xl_1x/public/sport/images/mood/ASVZ_16_044369_0.jpg?h=265e640d&itok=whomBflC",
+        "search": "https://asvz.ch/426-sportfahrplan?f[0]=sport:45634",
+        "summary": ""
     },
     {
         "name": "dance",
-        "img": "/sports/dance.png"
+        "img": "/sports/dance.png",
+        "src": "https://asvz.ch/sites/default/files/styles/hero_xl_1x/public/sport/images/mood/Afro%20Lektion_Fotograf_Daniel%20B%C3%BChler.jpg?h=2c4a5097&itok=pfys04kZ",
+        "search": "https://asvz.ch/426-sportfahrplan?f[0]=sport:45616",
+        "summary": ""
     },
     {
         "name": "box",
-        "img": "/sports/box.png"
+        "img": "/sports/box.png",
+        "src": "https://asvz.ch/sites/default/files/styles/hero_xl_1x/public/sport/images/mood/Konzentrierter%20Boxer_Fotograf%20Angelo%20Brack_0.jpg?h=6a4e4191&itok=CYCwUCn0",
+        "search": "https://asvz.ch/426-sportfahrplan?f[0]=sport:45637",
+        "summary": ""
     },
     {
         "name": "taekwondo",
-        "img": "/sports/taekwondo.png"
+        "img": "/sports/taekwondo.png",
+        "src": "https://asvz.ch/sites/default/files/styles/hero_xl_1x/public/sport/images/mood/Training%20Taekwondo_Fotograf%20Angelo%20Brack_0.jpg?h=35f7ba68&itok=QuTZ44Ba",
+        "search": "https://asvz.ch/426-sportfahrplan?f[0]=sport:45725",
+        "summary": ""
     },
     {
         "name": "football",
-        "img": "/sports/football.png"
+        "img": "/sports/football.png",
+        "src": "https://asvz.ch/sites/default/files/styles/hero_xl_1x/public/sport/images/mood/ASVZ_19_054717.jpg?h=aa7e0247&itok=I5BpgcQB",
+        "search": "https://asvz.ch/426-sportfahrplan?f[0]=sport:45657",
+        "summary": ""
     },
     {
         "name": "swimming",
-        "img": "/sports/swimming.png"
+        "img": "/sports/swimming.png",
+        "src": "https://asvz.ch/sites/default/files/styles/hero_xl_1x/public/sport/images/mood/Armzug%20Crawlerin_Fotograf%20Marc%20Weiler.jpg?h=af496087&itok=9bhGJ89i",
+        "search": "https://asvz.ch/426-sportfahrplan?f[0]=sport:45705",
+        "summary": ""
     },
     {
         "name": "diving",
-        "img": "/sports/diving.png"
+        "img": "/sports/diving.png",
+        "src": "https://asvz.ch/sites/default/files/styles/hero_xl_1x/public/sport/images/mood/Taucher%20im%20Korallenriff%2C%20%C3%84gypten_Fotograf%20Karl-Robert%20Deibel_1.jpg?h=e5643e87&itok=fPp4G83d",
+        "search": "https://asvz.ch/426-sportfahrplan?f[0]=sport:45729",
+        "summary": ""
     },
     {
         "name": "tabletennis",
-        "img": "/sports/tabletennis.png"
+        "img": "/sports/tabletennis.png",
+        "src": "https://asvz.ch/sites/default/files/styles/hero_xl_1x/public/sport/images/mood/ASVZ_Foto1.jpg?h=b271742d&itok=L0uwxbE1",
+        "search": "https://asvz.ch/426-sportfahrplan?f[0]=sport:45734",
+        "summary": ""
     },
     {
         "name": "hiking",
-        "img": "/sports/hiking.png"
+        "img": "/sports/hiking.png",
+        "src": "https://asvz.ch/sites/default/files/styles/hero_xl_1x/public/sport/images/mood/Kammwandern%20ob%20Biberbrugg_Foto%20Sylvia%20Sturm.JPG?h=790be497&itok=_MlmYtxM",
+        "search": "https://asvz.ch/426-sportfahrplan?f[0]=sport:45745",
+        "summary": ""
     },
     {
         "name": "climbing",
-        "img": "/sports/climbing.png"
+        "img": "/sports/climbing.png",
+        "src": "https://asvz.ch/sites/default/files/styles/hero_xl_1x/public/sport/images/mood/Kletterin%20am%20Fels_Fotograf%20Christoph%20Abegg_0.jpg?h=8b66fca8&itok=IYHEcPgh",
+        "search": "https://asvz.ch/426-sportfahrplan?f[0]=sport:45674",
+        "summary": ""
     },
     {
         "name": "fencing",
-        "img": "/sports/fencing.png"
+        "img": "/sports/fencing.png",
+        "src": "https://asvz.ch/sites/default/files/styles/hero_xl_1x/public/sport/images/mood/Fechterinnen%20im%20Duell_Fotograf%20Alex%20Wydler.jpg?h=51a72048&itok=o8pKGMPc",
+        "search": "https://asvz.ch/426-sportfahrplan?f[0]=sport:45651",
+        "summary": ""
     }
 ]

@@ -1,30 +1,26 @@
-import Flag from "../components/Flag"
-import FlagBox from "../components/FlagBox"
-import Avatar from "../components/Avatar"
+import FlagBox from "../components/FlagBox";
+import Avatar from "../components/Avatar";
 import GoBack from "../components/GoBack";
+import Title from "../components/Title";
+import Flag from "../components/Flag";
+
+/* Data*/
+import ACTIVITIES from "../activities.json"
 
 export default function Capture() {
     return (
         <>
             <GoBack />
             <Avatar />
-            <FlagBox>
-                <Flag img="/sports/basketball.png" />
-                <Flag img="/sports/fitness.png" />
-                <Flag img="/sports/badminton.png" />
-                <Flag img="/sports/beachwolley.png" />
-                <Flag img="/sports/bigair.png" />
-                <Flag img="/sports/arrow.png" />
-                <Flag img="/sports/dance.png" />
-                <Flag img="/sports/box.png" />
-                <Flag img="/sports/taekwondo.png" />
-                <Flag img="/sports/football.png" />
-                <Flag img="/sports/swimming.png" />
-                <Flag img="/sports/diving.png" />
-                <Flag img="/sports/tabletennis.png" />
-                <Flag img="/sports/hiking.png" />
-                <Flag img="/sports/climbing.png" />
-                <Flag img="/sports/fencing.png" />
+            <Title
+                title="You achievement"
+                desc=" Will you be able to collect them all?"
+            />
+
+            <FlagBox style={{ rowGap: 80 }}>
+                {ACTIVITIES.map((e, i) => (
+                    <Flag key={i} name={e.name} img={e.img} />
+                ))}
             </FlagBox>
         </>
 

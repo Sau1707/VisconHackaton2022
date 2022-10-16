@@ -1,13 +1,15 @@
 import { useState } from "react"
-import Button from "react-bootstrap/Button"
-import Avatar from "../components/Avatar"
+import { FaSave } from 'react-icons/fa';
+
+import SelectableFlag from "../components/SelectableFlag";
+import FlagBox from "../components/FlagBox";
+import Avatar from "../components/Avatar";
 import GoBack from "../components/GoBack";
-import FlagBox from "../components/FlagBox"
-import SelectableFlag from "../components/SelectableFlag"
+import Title from "../components/Title";
 
 /* Navigation */
 import { useRouter } from 'next/router'
-import { addNewUser } from "../fetch/get"
+import { addNewUser } from "../fetch/util"
 
 /* Auth */
 import { useSession } from "next-auth/react";
@@ -30,9 +32,11 @@ const testUsername = "" // session.user.name
 export default function Preferences() {
     const router = useRouter()
     const { data: session, status } = useSession();
+    const [userHasEdited, setUserHasEdited] = useState(false);
     const [activeFlags, setActiveFlags] = useState(generateFlags());
 
     const updateActiveFlags = (el) => {
+        if (!userHasEdited) setUserHasEdited(true)
         let flags = { ...activeFlags }
         flags[el] = !flags[el]
         setActiveFlags(flags)
@@ -49,15 +53,22 @@ export default function Preferences() {
         <>
             <GoBack />
             <Avatar />
-            <h3 style={{ marginTop: 30, marginBottom: 60, textAlign: "center" }}> Select your favourite activities </h3>
+            {
+                userHasEdited ? (
+                    <div style={{ position: "absolute", top: 30, left: 90, cursor: "pointer" }}>
+                        <FaSave onClick={savePreferences} size={48} color={"rgb(3, 252, 52)"} />
+                    </div>
+                ) : <></>
+            }
+            <Title
+                title="Preferences"
+                desc="Select your favourite activities!"
+            />
             <FlagBox>
                 {ACTIVITIES.map((e, i) => (
                     <SelectableFlag selected={activeFlags[e.name]} key={i} name={e.name} onClick={updateActiveFlags} img={e.img} />
                 ))}
             </FlagBox>
-            <div style={{ margin: "auto", marginTop: 30, marginBottom: 100, width: "fit-content" }}>
-                <Button onClick={savePreferences}> Save preferences </Button>
-            </div>
         </>
     )
 }

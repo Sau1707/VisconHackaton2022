@@ -5,3 +5,7 @@
     width: 48px;
     cursor: pointer;
 }
+
+.backBox:hover {
+    transform: translateX(-4px) translateY(-4px);
+}

@@ -30,7 +30,7 @@ export default function Home() {
             <h1 style={{ textAlign: "center", marginTop: "5vh", background: "none" }}> Welcome {session.user.name} </h1>
             <Avatar />
             <div>
-               <div style = {{border: "1px solid green"}}> 
+               <div style = {{border: "0px solid green", position: "relative", height: "400px"}}> 
              <Trophy />
             </div>
             <div>

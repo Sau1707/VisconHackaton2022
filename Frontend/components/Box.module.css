@@ -9,6 +9,7 @@
     cursor: pointer;
     background-color: transparent;
     width: 100%;
+    position: relative;
     perspective: 1000px;
 }
 

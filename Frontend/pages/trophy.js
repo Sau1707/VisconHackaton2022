@@ -61,7 +61,7 @@ const CameraControls = () => {
         gl: { domElement }
     } = useThree();
     camera.position.x = 10;
-    camera.position.y = 10;
+    camera.position.y = 5;
     camera.position.z = 0;
     
     // Ref to the controls, so that we can update them on every frame using useFrame
@@ -94,7 +94,7 @@ function animate() {
     return (
         <>
             <Canvas style={{
-                position: "absolute", background: "white", width: "100%",
+                position: "absolute", background: "black", width: "100%",
                 height: "100%"
             }}>
                 <CameraControls />

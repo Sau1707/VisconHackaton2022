@@ -1,0 +1,7 @@
+.backBox {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 48px;
+    cursor: pointer;
+}

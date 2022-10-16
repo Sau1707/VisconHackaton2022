@@ -1,41 +1,25 @@
 import { useState } from "react"
 import Button from "react-bootstrap/Button"
 import Avatar from "../components/Avatar"
+import GoBack from "../components/GoBack";
 import FlagBox from "../components/FlagBox"
 import SelectableFlag from "../components/SelectableFlag"
 
 /* Navigation */
 import { useRouter } from 'next/router'
-import { getUserExists, addNewUser } from "../fetch/get"
+import { addNewUser } from "../fetch/get"
 
 /* Auth */
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
-/* TODO move to backend */
-const ACTIVITIES = {
-    basketball: "/sports/basketball.png",
-    fitness: "/sports/fitness.png",
-    badminton: "/sports/badminton.png",
-    beachwolley: "/sports/beachwolley.png",
-    bigair: "/sports/bigair.png",
-    arrow: "/sports/arrow.png",
-    dance: "/sports/dance.png",
-    box: "/sports/box.png",
-    taekwondo: "/sports/taekwondo.png",
-    football: "/sports/football.png",
-    swimming: "/sports/swimming.png",
-    diving: "/sports/diving.png",
-    tabletennis: "/sports/tabletennis.png",
-    hiking: "/sports/hiking.png",
-    climbing: "/sports/climbing.png",
-    fencing: "/sports/fencing.png",
-}
+/* Data*/
+import ACTIVITIES from "../activities.json"
 
 /* Map ACTIVITIES and create array */
 function generateFlags() {
     let flags = {}
-    Object.keys(ACTIVITIES).forEach(e => {
-        flags[e] = false
+    ACTIVITIES.forEach(e => {
+        flags[e.name] = false
     })
 
     return flags
@@ -63,11 +47,12 @@ export default function Preferences() {
 
     return (
         <>
+            <GoBack />
             <Avatar />
             <h3 style={{ marginTop: 30, marginBottom: 60, textAlign: "center" }}> Select your favourite activities </h3>
             <FlagBox>
-                {Object.keys(ACTIVITIES).map((e, i) => (
-                    <SelectableFlag selected={activeFlags[e]} key={i} name={e} onClick={updateActiveFlags} img={ACTIVITIES[e]} />
+                {ACTIVITIES.map((e, i) => (
+                    <SelectableFlag selected={activeFlags[e.name]} key={i} name={e.name} onClick={updateActiveFlags} img={e.img} />
                 ))}
             </FlagBox>
             <div style={{ margin: "auto", marginTop: 30, marginBottom: 100, width: "fit-content" }}>

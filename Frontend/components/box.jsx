@@ -17,12 +17,11 @@ export default function Box(props) {
                         <div className={style.imageElement}> {props.front} </div>
                         {props.image ? <img className={style.image} src={props.image} /> : <></>}
                     </div>
-
                 </div>
                 <div className={style.flipCardBack}>
                     <div className={style.imageBox}>
                         <div className={style.imageElement}> {props.back} </div>
-                        {props.image ? <img style={{ filter: "blur(2px) brightness(1.6)" }} className={style.image} src={props.image} /> : <></>}
+                        {props.image ? <img style={{ filter: "blur(2px) brightness(0.5)" }} className={style.image} src={props.image} /> : <></>}
                     </div>
                 </div>
             </div>

@@ -33,7 +33,7 @@ export default function Achievements() {
                 </div>
                 <div style = {{position: "relative", left: "100px", top: "-200px", width: "fit-content", blockSize: "fit-content"}}>
                     <Tracker percentage = {80}></Tracker>
-                    <h3 style={{marginLeft: "265px", marginTop: "20px"}}>Cool</h3>
+                    <h3 style={{marginLeft: "265px", marginTop: "20px"}}>Some other stat</h3>
                 </div>
             </div>
         </>

@@ -6,6 +6,7 @@ import pathlib
 import random
 from datetime import datetime, timedelta
 from tokenize import Name
+from typing import Any
 # from api import handle_create_user # XXX this should be used
 from db import (
     HistoryAction,
@@ -78,12 +79,12 @@ SPORTS = [(sport[0].upper() + sport[1:]) for sport in SPORTS]
 
 # TODO (these seem to be better as a fit for badges)
 STORIES = [
-    ("Martial Arts Master", "Taekwondo,Box,Fencing"),
-    ("Racketeer", "Tabletennis,Badmington,Bigair"),
-    ("Medieval Warrior", "Arrow,Fencing,Dance"),
-    ("Good with Balls", "Football,Basketball,Beachwolley"),
-    ("Explorer", "Swimming,Hiking,Climbing"),
-    ("Whale", "Swimming,Diving,Fitness"),
+    ("Martial Arts Master", "Taekwondo,Box,Fencing".split(",")),
+    ("Racketeer", "Tabletennis,Badmington,Bigair".split(",")),
+    ("Medieval Warrior", "Arrow,Fencing,Dance".split(",")),
+    ("Good with Balls", "Football,Basketball,Beachwolley".split(",")),
+    ("Explorer", "Swimming,Hiking,Climbing".split(",")),
+    ("Whale", "Swimming,Diving,Fitness".split(",")),
 ]
 
 def clear_database():
@@ -94,6 +95,21 @@ def create_database_and_tables():
     logging.info("Creating database and tables")
     DATABASE_CREATE_ALL()
 
+# Tester used to only print out the serialization of the very first
+# instance of any type so that we can test serialize/deserialize without logspam.
+__serialization_test_type = {}
+def test_first_item_serialization(item: Any) -> None:
+    global __serialization_test_type
+    if str(type(item)) not in __serialization_test_type:
+        print("*"*100)
+        logging.debug(f"Example {type(item)}")
+
+        __serialization_test_type[str(type(item))] = None
+        print(item.serialize())
+        assert item.serialize() is not None
+        assert item.deserialize(item.serialize()) is not None
+        print("*"*100 + "\n")
+
 def populate_stories():
     logging.info("Populating stories")
     # TODO have a way of creating some actual interesting combinations
@@ -103,8 +119,9 @@ def populate_stories():
             story = StoryEntry(
                 Id=idx,
                 Name=name,
-                Sequence=exercises,
+                Sequence=",".join(exercises),
             )
+            test_first_item_serialization(story)
             session.add(story)
         session.commit()
 
@@ -119,6 +136,7 @@ def populate_badges():
                 Name=f"Try {sport}",
                 Requirements=f"Go to one or more lessons/practices of {sport}.",
             )
+            test_first_item_serialization(badge)
             session.add(badge)
         session.commit()
 
@@ -135,10 +153,11 @@ def populate_users():
                 CurrentlyActive=False,
                 WeeklyDatesFree="",
                 DesiredBufferTime=30,
-                SportsPreferences="",
+                SportsPreferences=",".join(SPORTS),
                 LastWeekUpdated=datetime.now(),
                 Active=True,
             )
+            test_first_item_serialization(user)
             session.add(user)
         session.commit()
 
@@ -164,6 +183,7 @@ def populate_history():
                 ActivityName=prev_sport,
                 Date=prev_time,
             )
+            test_first_item_serialization(history_entry)
             session.add(history_entry)
         session.commit()
 
@@ -195,20 +215,20 @@ def run_weekly_update():
             # TODO come up with a better naming system
             # TODO minimize number of queries to the ASVZ API because it is SLOW
             # Create a new story and add it to the DB
-            story = StoryCreator.create(StoryFmt.CommaDelimited)
+            story = StoryCreator.create(StoryFmt.CommaDelimited).split(",")
             story_id = idx + 1 + prev_max_id
             story_name = f"Story {idx}"
             session.add(StoryEntry(
                 Id=story_id,
                 Name=story_name,
-                Sequence=story,
+                Sequence=",".join(story),
             ))
 
             # Add the story and corresponding information to each user's entry
             for user, opponent in [(user1, user2), (user2, user1)]:
                 session.query(UserEntry).filter(UserEntry.Username == user.Username).update({
                     "CurrentStoryId": story_id,
-                    "CurrentStorySize": len(story.split(",")),
+                    "CurrentStorySize": len(story),
                     "CurrentProgress": 0,
                     "CurrentlyActive": True,
                     "CurrentOpponent": opponent.Username,

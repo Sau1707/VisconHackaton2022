@@ -1,9 +1,11 @@
 import Box from "../components/Box"
+import Trophy from "../pages/trophy"
 import Grid from "../components/Grid"
 import { useSession, signOut } from "next-auth/react";
 import { getUserExists, addNewUser } from "../fetch/util"
 import { useRouter } from 'next/router'
 import Avatar from "../components/Avatar"
+import { Translate } from "react-bootstrap-icons";
 
 const ChallengesText = "Level up your fitness game by competing with others for flags and... maybe... legendary trophies. Every week a new challenge is issued and players are paired by skill level, commitment, and interests. The first to complete the tasks wins that weeks' flag. With enough flags, you will find greater rewards to encourage you forward into a way of lifelong health and vigor."
 const TeamText = "Coming soon."
@@ -27,6 +29,11 @@ export default function Home() {
         <>
             <h1 style={{ textAlign: "center", marginTop: "5vh", background: "none" }}> Welcome {session.user.name} </h1>
             <Avatar />
+            <div>
+               <div style = {{border: "1px solid green"}}> 
+             <Trophy />
+            </div>
+            <div>
             <Grid>
                 <Box
                     href="challenges"
@@ -74,6 +81,8 @@ export default function Home() {
                     }
                 />
             </Grid>
+            </div>
+            </div>
         </>
     )
 }

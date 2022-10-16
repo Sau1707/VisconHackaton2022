@@ -7,6 +7,7 @@ from datetime import datetime
 from marshmallow import Schema, fields
 
 from sqlalchemy.orm import Session as MakeSession
+from sqlalchemy.sql.expression import func as sql_func
 from sqlalchemy import desc
 
 from db import (
@@ -31,6 +32,7 @@ def create_tables(func):
 def with_io_schema(input: type, output: type):
     def decorator(func: Callable[[Any], Any]) -> Callable[[Any], Any]:
         def wrapper(to_validate: Any) -> Any:
+            print(to_validate)
             return output().dumps(func(input().loads(to_validate)))
         return wrapper
     return decorator
@@ -139,18 +141,66 @@ def handle_create_user(r: Any) -> Any:
 @with_io_schema(UserRequest, SuccessResponse)
 @create_tables
 def handle_update_user_weekly_progress(r: Any) -> Any:
-    # XXX
-    return {"Success" : True}
+    with MakeSession(DATABASE_ENGINE) as session:
+        session.query(UserEntry).filter(
+                UserEntry.Username == r["Username"]).update(
+                    {"CurrentProgress": sql_func.min(UserEntry.CurrentProgress + 1, 3)})
+        session.commit()
+        return {"Success" : True}
 @with_io_schema(PreferencesUpdateRequest, SuccessResponse)
 @create_tables
 def handle_update_user_preferences(r: Any) -> Any:
-    # XXX
-    return {"Successs" : True}
-@with_io_schema(UpdateUserHistoryRequest, SuccessResponse)
+    # WeeklyDatesFree     = fields.List(fields.List(fields.DateTime()))
+    # DesiredBufferTime   = fields.Int()
+    # SportsPreferences   = fields.List(fields.Str())
+    # LocationPreferences = fields.List(fields.Str())
+
+    # TODO use the other abstractions if possible instead
+    modifier = {}
+    if "WeeklyDatesFree" in r:
+        modifier["WeeklyDatesFree"] = UserEntry.deserialize_weekly_dates_free(r["WeeklyDatesFree"])
+    for key in ["SportsPreferences", "LocationPreferences"]:
+        if key in r:
+            modifier[key] = ",".join(r[key])
+    if "DesiredBufferTime" in r:
+        modifier["DesiredBufferTime"] = r["DesiredBufferTime"]
+    if len(modifier) > 0:
+        with MakeSession(DATABASE_ENGINE) as session:
+            print(modifier)
+            session.query(UserEntry).filter(
+                    UserEntry.Username == r["Username"]).update(modifier)
+            session.commit()
+    return {"Success" : True}
+
+# TODO actually use validation here properly
 @create_tables
 def handle_update_user_history(r: Any) -> Any:
-    # XXX
-    return {"Success" : True}
+    with MakeSession(DATABASE_ENGINE) as session:
+        prev_max_id = session.query(HistoryEntry).order_by(desc(HistoryEntry.Id)).first().Id
+        # They should pass in the following all already serialized
+        # Username
+        # Action
+        # ActionName
+        # ActivityId
+        # ActivityName
+        # Example:
+        # {
+        #     "HistoryEntry": {
+        #         "Username": "Adriano",
+        #         "Action": 2,
+        #         "ActionName": "FinishedExercise",
+        #         "ActivityId": 0,
+        #         "ActivityName": "Basketball"
+        #     }
+        # }
+        rdeserialized = json.loads(r)
+        next_history = HistoryEntry(
+            Id=prev_max_id + 1,
+            Date=datetime.now(),
+            **rdeserialized["HistoryEntry"])
+        session.add(next_history)
+        session.commit()
+        return json.dumps({"Success" : True})
 
 # Special admin method
 # TODO no validation here but should be

@@ -1,6 +1,7 @@
 import FlagBox from "../components/FlagBox";
 import Avatar from "../components/Avatar";
 import GoBack from "../components/GoBack";
+import Title from "../components/Title";
 import Flag from "../components/Flag";
 
 /* Data*/
@@ -11,12 +12,12 @@ export default function Capture() {
         <>
             <GoBack />
             <Avatar />
-            <div style={{ marginTop: 30, marginBottom: 30, textAlign: "center" }}>
-                <h1> You achievement </h1>
-                <h5> Will you be able to collect them all? </h5>
-            </div>
+            <Title
+                title="You achievement"
+                desc=" Will you be able to collect them all?"
+            />
 
-            <FlagBox style={{ rowGap: 110 }}>
+            <FlagBox style={{ rowGap: 80 }}>
                 {ACTIVITIES.map((e, i) => (
                     <Flag key={i} name={e.name} img={e.img} />
                 ))}

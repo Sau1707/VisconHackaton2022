@@ -3,7 +3,6 @@ import { FaSave } from 'react-icons/fa';
 
 import SelectableFlag from "../components/SelectableFlag";
 import FlagBox from "../components/FlagBox";
-import Button from "react-bootstrap/Button";
 import Avatar from "../components/Avatar";
 import GoBack from "../components/GoBack";
 

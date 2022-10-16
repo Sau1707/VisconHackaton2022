@@ -1,58 +1,66 @@
 from flask import Flask, request
 import logging
+import json
 from typing import Callable, Any
+from marshmallow import Schema
+
+from api import (
+    handle_create_user,
+    handle_get_user_details,
+    handle_get_user_existence,
+    handle_get_user_history,
+    handle_update_user_history,
+    handle_update_user_preferences,
+    handle_update_user_weekly_progress,
+    handle_weekly_update
+)
+
+# Initialize flask server
 app = Flask(__name__)
 
-def handler(request: Any, handle_func: Callable[[Any], Any]):
-    rq = {}
-    try:
-        rq['Json'] = request.json if request.is_json else {}
-    except Exception as e:
-        logging.warning(f'Failed to get request.json: {e}')
-        rq['Json'] = {}
-    try:
-        rq['Data'] = request.data
-    except Exception as e:
-        logging.warning(f'Failed to get request.data: {e}')
-        rq['Data'] = b''
-    rq['Args'] = request.args
-    rq['Method'] = request.method
-    return handle_func(rq)
+def handler(request: Any, handle_func: Callable[[Schema], Schema]):
+    data = None
+    if request.method == "GET":
+        # We dump here for marshmallow to do validation later
+        data = json.dumps(request.args)
+    elif request.method == "POST":
+        data = request.data
+    return handle_func(data)
 
 # Getters (All information should be in the Args section)
 @app.route('/user_history', methods=["GET"])
 def handle_user_history():
-    return handler(request, lambda x : x) # XXX
+    return handler(request, handle_get_user_history)
 
 @app.route('/user_details', methods=["GET"])
 def handle_user_details():
-    return handler(request, lambda x : x) # XXX
+    return handler(request, handle_get_user_details)
 
-@app.route('/user_details', methods=["GET"])
+@app.route('/user_exists', methods=["GET"])
 def handle_user_existence() -> bool:
-    return handler(request, lambda x : x) # XXX
+    return handler(request, handle_get_user_existence)
 
 # Creators
-@app.route('/user_details', methods=["POST"])
+@app.route('/create_user', methods=["POST"])
 def handle_create_user():
-    return handler(request, lambda x : x) # XXX
+    return handler(request, handle_create_user)
 
 # Updators
-@app.route('/user_details', methods=["POST"])
+@app.route('/update_user_weekly_progress', methods=["POST"])
 def handle_user_weekly_progress():
-    return handler(request, lambda x : x) # XXX
-@app.route('/user_details', methods=["POST"])
+    return handler(request, handle_update_user_weekly_progress)
+@app.route('/update_user_preferences', methods=["POST"])
 def handle_user_preferences():
-    return handler(request, lambda x : x) # XXX
-@app.route('/user_details', methods=["POST"])
-def handle_user_history():
-    return handler(request, lambda x : x) # XXX
+    return handler(request, handle_update_user_preferences)
+@app.route('/update_user_history', methods=["POST"])
+def handle_user_history_update():
+    return handler(request, handle_update_user_history)
 
 
 # Admin Route
 @app.route('/weekly_update/', methods=["POST"])
 def handle_weekly_update():
-    return handler(request, lambda x : x) # XXX
+    return handle_weekly_update().dumps()
 
 # Run a flask app on debug mode
 if __name__=='__main__':

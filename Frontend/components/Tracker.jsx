@@ -8,7 +8,7 @@ class Tracker extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            percentage: 60
+            percentage: props.percentage
         };
     }
 

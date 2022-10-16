@@ -2,7 +2,6 @@ import ChartBox from "../components/ChartBox";
 import Tracker from "../components/Tracker";
 import GoBack from "../components/GoBack";
 import Avatar from "../components/Avatar";
-import AchievementGrid from "../components/AchievementGrid"
 import Title from "../components/Title";
 
 export default function Achievements() {
@@ -20,20 +19,20 @@ export default function Achievements() {
                     <h3 style={{marginLeft: "250px", marginTop: "50px", whiteSpace: "nowrap"}}>Cumulated wins</h3>
                 </div>
                 <div style = {{marginLeft: "100px", width: "100px", height: "50px", float: "left", width: "fit-content", blockSize: "fit-content"}}>
-                    <Tracker></Tracker>
+                    <Tracker percentage = {60} ></Tracker>
                     <h3 style={{marginLeft: "150px", marginTop: "20px", whiteSpace: "nowrap"}}>Challenges participated</h3>
                 </div>
                 <div style = {{marginLeft: "100px", width: "100px", height: "50px", float: "left", width: "fit-content", blockSize: "fit-content"}}>
-                    <Tracker></Tracker>
+                    <Tracker percentage = {30}></Tracker>
                     <h3 style={{marginLeft: "180px", marginTop: "20px", whiteSpace: "nowrap"}}>Sports discovered</h3>
                 </div>
                 <div></div>
                 <div style = {{position: "relative", left: "100px", top: "-200px", width: "fit-content", blockSize: "fit-content"}}>
-                    <Tracker></Tracker>
+                    <Tracker percentage = {40}></Tracker>
                     <h3 style={{marginLeft: "200px", marginTop: "20px", whiteSpace: "nowrap"}}>Challenges won</h3>
                 </div>
                 <div style = {{position: "relative", left: "100px", top: "-200px", width: "fit-content", blockSize: "fit-content"}}>
-                    <Tracker></Tracker>
+                    <Tracker percentage = {80}></Tracker>
                     <h3 style={{marginLeft: "265px", marginTop: "20px"}}>Cool</h3>
                 </div>
             </div>

@@ -77,7 +77,7 @@ export default function ChallengeBox(props) {
                                 }
                                 back={
                                     <div style={{ padding: 30 }}>
-                                        <h5 className="with-eight">{sport2.name.charAt(0).toUpperCase() + sport2.name.slice(1)}: Challenge of the week </h5>
+                                        <h5 className="with-eight">{sport2.name.charAt(0).toUpperCase() + sport2.name.slice(1)}{sport2.name}: Challenge of the week </h5>
                                         <h6 className="with-eight"> {sport2.summary} </h6>
                                     </div>
                                 }

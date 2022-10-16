@@ -1,4 +1,5 @@
 import ChallengeBox from "../components/ChallengeBox";
+import Title from "../components/Title";
 import GoBack from "../components/GoBack";
 import Avatar from "../components/Avatar";
 
@@ -40,10 +41,10 @@ export default function Challenges() {
         <>
             <GoBack />
             <Avatar />
-            <div style={{ marginTop: 30, marginBottom: 30, textAlign: "center" }}>
-                <h1> Challenge of the weeks </h1>
-                <h5> Be the first one to complete them! </h5>
-            </div>
+            <Title
+                title="Challenge of the weeks"
+                desc="Be the first one to complete them!"
+            />
             <ChallengeBox user={100} competitor={5} sports={challenges} />
         </>
     )

@@ -1,25 +1,13 @@
-import ChallengeBox from "../components/ChallengeBox"
-import GoBack from "../components/GoBack"
-import Avatar from "../components/Avatar"
-import ACTIVITIES from "../activities.json"
+import ChallengeBox from "../components/ChallengeBox";
+import GoBack from "../components/GoBack";
+import Avatar from "../components/Avatar";
 
-//export const getServerSideProps = async () => {
-//    // Fetch data from external API
-//    const res = await fetch(`https://asvz.ch/asvz_api/sport_search?_format=json&limit=999`); //can use await bc. async
-//    const data = await res.json();
-//
-//    const titleData = {}
-//
-//    data.results.forEach(element => {
-//        titleData[element.title] = {
-//            summary: element.summary,
-//            number: element.nid
-//        }
-//    });
-//
-//    return { props: { titleData } }
-//
-//}
+/* Db*/
+import { getUserWeekChalleges } from "../fetch/util";
+
+/* Data */
+import ACTIVITIES from "../activities.json";
+
 
 /* Temp functions */
 function shuffle(array) {
@@ -44,6 +32,7 @@ export default function Challenges() {
 
     /* TODO: Add request to database insead of random */
     const challenges = generateRandomChannelges()
+    //getUserWeekChalleges(user)
     console.log(challenges)
 
     //when initializing user and competitor set initial value by passing a request to the server

@@ -1,13 +1,13 @@
 import { useState } from "react"
-import Button from "react-bootstrap/Button"
-import Avatar from "../components/Avatar"
+import SelectableFlag from "../components/SelectableFlag";
+import FlagBox from "../components/FlagBox";
+import Button from "react-bootstrap/Button";
+import Avatar from "../components/Avatar";
 import GoBack from "../components/GoBack";
-import FlagBox from "../components/FlagBox"
-import SelectableFlag from "../components/SelectableFlag"
 
 /* Navigation */
 import { useRouter } from 'next/router'
-import { addNewUser } from "../fetch/get"
+import { addNewUser } from "../fetch/util"
 
 /* Auth */
 import { useSession } from "next-auth/react";

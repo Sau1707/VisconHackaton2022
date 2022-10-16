@@ -1,7 +1,7 @@
-import Flag from "../components/Flag"
-import FlagBox from "../components/FlagBox"
-import Avatar from "../components/Avatar"
+import FlagBox from "../components/FlagBox";
+import Avatar from "../components/Avatar";
 import GoBack from "../components/GoBack";
+import Flag from "../components/Flag";
 
 /* Data*/
 import ACTIVITIES from "../activities.json"

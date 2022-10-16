@@ -1,7 +1,7 @@
 import Box from "../components/Box"
 import Grid from "../components/Grid"
 import { useSession, signOut } from "next-auth/react";
-import { getUserExists, addNewUser } from "../fetch/get"
+import { getUserExists, addNewUser } from "../fetch/util"
 import { useRouter } from 'next/router'
 import Avatar from "../components/Avatar"
 

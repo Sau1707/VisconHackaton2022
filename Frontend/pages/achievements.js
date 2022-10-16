@@ -1,8 +1,8 @@
-import ChartBox from "../components/ChartBox"
-import Grid from "../components/grid"
-import Tracker from "../components/Tracker"
-import GoBack from "../components/GoBack"
-import Avatar from "../components/Avatar"
+import ChartBox from "../components/ChartBox";
+import Tracker from "../components/Tracker";
+import GoBack from "../components/GoBack";
+import Avatar from "../components/Avatar";
+import Grid from "../components/grid";
 
 export default function Achievements() {
     return (

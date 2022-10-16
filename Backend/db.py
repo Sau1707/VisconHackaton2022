@@ -1,12 +1,8 @@
 from __future__ import annotations
 
-from datetime import datetime
 from enum import Enum
-from wsgiref.validate import validator
 from sqlalchemy import create_engine, Integer, String, Column, Boolean, DateTime
 from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import Session as MakeSession
-from yaml import serialize
 
 # Desired Functionality
 # 1. Given a user and a set of exercises with dates and counts,
@@ -40,15 +36,18 @@ from yaml import serialize
 # | Class Sequence: comma-delimited nids |
 
 # HISTORY
-# | Username   |
-# | Action     |
-# | Activity   |
-# | Date       |
+# | Username                             |
+# | Action                               |
+# | Activity                             |
+# | Date                                 |
+# | Opponent                             |
+# | Victor                               |
 
-# XXX BADGES
-# XXX | Badge ID   |
-# XXX | Badge Name |
-# XXX | Badge Requirements |
+# BADGES
+# | Badge ID                             |
+# | Badge Name                           |
+# | Badge Requirements                   |
+DATABASE_FILE = "users.db"
 
 class HistoryAction(Enum):
     InProgressExercise  = 1
@@ -68,7 +67,7 @@ class HistoryAction(Enum):
         return self.value
 
 # https://docs.sqlalchemy.org/en/20/core/engines.html
-engine = create_engine("sqlite:///users.db", echo=False)
+DATABASE_ENGINE = create_engine("sqlite:///users.db", echo=False)
 
 Base = declarative_base()
 
@@ -89,12 +88,13 @@ class UserEntry(Base):
     # History
     TotalVictories      = Column(Integer)
     TotalClasses        = Column(Integer)
+    Badges              = Column(String) # Serialized/CSV
 
     # Preferences
-    WeeklyDatesFree     = Column(String) # CSV
+    WeeklyDatesFree     = Column(String) # Serialized/CSV
     DesiredBufferTime   = Column(Integer)
-    SportsPreferences   = Column(String) # CSV
-    LocationPreferences = Column(String) # CSV
+    SportsPreferences   = Column(String) # Serialized/CSV
+    LocationPreferences = Column(String) # Serialized/CSV
 
     # Status
     LastWeekUpdated     = Column(DateTime)
@@ -110,7 +110,7 @@ class StoryEntry(Base):
 
     Id                  = Column(Integer, primary_key=True)
     Name                = Column(String)
-    Sequence            = Column(String) # CSV
+    Sequence            = Column(String) # Serialized/CSV
 
 
 HISTORY_TABLE = "history_table"
@@ -119,29 +119,19 @@ class HistoryEntry(Base):
 
     # TODO we will want to have Username linked to those in the UserEntry table
     Username            = Column(String, primary_key=True)
-    Action              = Column(Integer) # HistoryAction
+    Opponent            = Column(String)
+    Victor              = Column(String)
+    Action              = Column(Integer) # Serialized/HistoryAction
     ActionName          = Column(String)
     ActivityId          = Column(Integer)
     Date                = Column(DateTime)
 
+BADGE_TABLE = "badge_table"
+class BadgeEntry(Base):
+    __tablename__ = BADGE_TABLE
+    Id                  = Column(Integer, primary_key=True)
+    Name                = Column(String)
+    Requirements        = Column(String) # Serialized/CSV
 
-# Should be called AFTER the definitions of all our types in tables
-Base.metadata.create_all(engine)
-
-if __name__ == "__main__":
-    # Demo of updating the database
-    with MakeSession(engine) as session:
-        # Create a user for our datbase
-        u = UserEntry(
-            Username='schmidt',
-            CurrentStoryId=0,
-            CurrentProgress=0,
-            TotalVictories=0,
-            CurrentOpponent='noah',
-        )
-
-        # Add them to the database
-        session.add(u)
-
-        # Commit so that we save the state
-        session.commit()
+def DATABASE_CREATE_ALL():
+    Base.metadata.create_all(DATABASE_ENGINE)

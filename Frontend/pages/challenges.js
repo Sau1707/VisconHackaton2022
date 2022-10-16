@@ -46,6 +46,9 @@ export default function Challenges() {
                 desc="Be the first one to complete them!"
             />
             <ChallengeBox user={100} competitor={5} sports={challenges} />
+            <br />
+            <br />
+            <br />
         </>
     )
 }

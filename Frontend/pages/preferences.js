@@ -5,6 +5,7 @@ import SelectableFlag from "../components/SelectableFlag";
 import FlagBox from "../components/FlagBox";
 import Avatar from "../components/Avatar";
 import GoBack from "../components/GoBack";
+import Title from "../components/Title";
 
 /* Navigation */
 import { useRouter } from 'next/router'
@@ -59,8 +60,10 @@ export default function Preferences() {
                     </div>
                 ) : <></>
             }
-
-            <h3 style={{ marginTop: 30, marginBottom: 60, textAlign: "center" }}> Select your favourite activities </h3>
+            <Title
+                title="Preferences"
+                desc="Select your favourite activities!"
+            />
             <FlagBox>
                 {ACTIVITIES.map((e, i) => (
                     <SelectableFlag selected={activeFlags[e.name]} key={i} name={e.name} onClick={updateActiveFlags} img={e.img} />

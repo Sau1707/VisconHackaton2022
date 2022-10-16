@@ -31,8 +31,7 @@ def create_tables(func):
 def with_io_schema(input: type, output: type):
     def decorator(func: Callable[[Any], Any]) -> Callable[[Any], Any]:
         def wrapper(to_validate: Any) -> Any:
-            validated = input().loads(to_validate)
-            return output().dumps(func(validated))
+            return output().dumps(func(input().loads(to_validate)))
         return wrapper
     return decorator
 
@@ -113,39 +112,49 @@ class UpdateUserHistoryRequest(Schema):
     # Serialized HistoryEntry using the HistoryEntry class from db
     # Should be loaded using json dumps
     HistoryEntry        = fields.Mapping()
+
+@with_io_schema(UserCreationRequest, SuccessResponse)
 @create_tables
-def handle_create_user(r: UserCreationRequest) -> SuccessResponse:
-    assert not handle_get_user_existence().dumps().exists
-    # with MakeSession(DATABASE_ENGINE) as session:
-    #     user = UserEntry(
-    #             Username=r.Username,
-    #             TotalVictories=0,
-    #             CurrentlyActive=False,
-    #             WeeklyDatesFree=UserCreationRequest.WeeklyDatesFree.dump(),
-    #             DesiredBufferTime=30,
-    #             SportsPreferences=",".join(SPORTS),
-    #             LastWeekUpdated=datetime.now(),
-    #             Active=True,
-    #         )
-    #     session.add(user)
-    return SuccessResponse(Success=True)
+def handle_create_user(r: Any) -> Any:
+    with MakeSession(DATABASE_ENGINE) as session:
+        if not len(session.query(UserEntry).filter(UserEntry.Username == r["Username"]).limit(2).all()) == 0:
+            return {"Success" : False}
+        user = UserEntry(
+            Username = r["Username"],
+            # Give them some reasonable defaults
+            TotalVictories=0,
+            CurrentlyActive=False,
+            Active=True,
+            LastWeekUpdated=datetime.now(),
+        )
+        for key, default in [("DesiredBufferTime", 30), ("WeeklyDatesFree", ""), ("SportsPreferences", ""), ("LocationPreferences", "")]:
+            setattr(user, key, r[key] if key in r else default)
+        
+        # Commit
+        session.add(user)
+        session.commit()
+    return {"Success" : True}
 
 # Updators
+@with_io_schema(UserRequest, SuccessResponse)
 @create_tables
-def handle_update_user_weekly_progress(r: UserRequest) -> SuccessResponse:
+def handle_update_user_weekly_progress(r: Any) -> Any:
     # XXX
-    return SuccessResponse(Success=True)
+    return {"Success" : True}
+@with_io_schema(PreferencesUpdateRequest, SuccessResponse)
 @create_tables
-def handle_update_user_preferences(r: PreferencesUpdateRequest) -> SuccessResponse:
+def handle_update_user_preferences(r: Any) -> Any:
     # XXX
-    return SuccessResponse(Success=True)
+    return {"Successs" : True}
+@with_io_schema(UpdateUserHistoryRequest, SuccessResponse)
 @create_tables
-def handle_update_user_history(r: UpdateUserHistoryRequest) -> SuccessResponse:
+def handle_update_user_history(r: Any) -> Any:
     # XXX
-    return SuccessResponse(Success=True)
+    return {"Success" : True}
 
 # Special admin method
+# TODO no validation here but should be
 @create_tables
-def handle_weekly_update() -> SuccessResponse:
+def handle_weekly_update() -> Any:
     # XXX
-    return SuccessResponse(Success=True)
+    return {"Success": False}

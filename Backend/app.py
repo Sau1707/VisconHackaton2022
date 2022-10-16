@@ -42,7 +42,7 @@ def handle_user_existence() -> bool:
 
 # Creators
 @app.route('/create_user', methods=["POST"])
-def handle_create_user():
+def handle_user_creation():
     return handler(request, handle_create_user)
 
 # Updators

@@ -41,7 +41,9 @@ function ArWing() {
     return (
       <group ref={group}>
         <mesh visible geometry={nodes.cup001.geometry} material = {materials['palette.001']}>
-          
+        <meshPhysicalMaterial attach="material" color="#FFFF00"  roughness = "0.7"   
+  transmission= "0.4"  
+  thickness = "1"/>
         </mesh>
       </group>
     );
@@ -56,6 +58,9 @@ const CameraControls = () => {
     camera,
     gl: { domElement }
   } = useThree();
+  camera.position.x = 0;
+  camera.position.y = 20;
+  camera.position.z = 0;
 
   // Ref to the controls, so that we can update them on every frame using useFrame
   const controls = useRef();
@@ -76,10 +81,11 @@ const CameraControls = () => {
 export default function App() {
   return (
     <>
-      <Canvas style={{ background: "white",  width: "100%",
-  height: "500px"}}>
+      <Canvas style={{ position: "absolute", background: "white",  width: "100%",
+  height: "100%"}}>
         <CameraControls />
-        <directionalLight intensity={0.5} />
+        <pointLight position={[-20, 15, -20]} intensity = {0.15} />
+        <pointLight position={[-15, 10, -20]} intensity = {0.65} />
         <Suspense fallback={<Loading />}>
           <ArWing />
         </Suspense>
